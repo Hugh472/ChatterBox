@@ -18,7 +18,11 @@
      If the views have text, the strings that are used are pulled from strings.xml
      For example, the text prompt below uses a string called enter_bill, whose value is 
      inside strings.xml (Enter total bill amount)
+
+     Allgood guy? let's code!
      -->
+
+
      
      <!-- A view that prompts the user to enter a bill -->
     <TextView
