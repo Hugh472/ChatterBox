@@ -1,10 +1,3 @@
-/*****************************************************************************************
- * Adapted and tortured by Julian Trinh and Connor Richmond for use in ENG EC 327
- * Source code from https://github.com/academicode/app-simple-tip-calculator/tree/session-7
- * Sweet tutorial at https://www.youtube.com/watch?v=Z3jzIYkxB1s (where the source is from)
- * Boston University: College of Engineering
- * Spring 2015
- *****************************************************************************************/
 package org.academicode.tipcalculator;
 
 //This is the class that will first be run when the app is first opened
@@ -31,14 +24,10 @@ package org.academicode.tipcalculator;
         //Creating the EditText object
         private EditText et;
         private EditText et2;
-        private EditText et3;
-        private EditText et4;
-        private EditText et5;
 	
 	//Creating button objects, which extend (inherit) the View class
-	private Button main_signIn;
-	private Button main_signUp;
-    private Button signUp_createNewUser;
+	private Button signIn;
+	private Button signUp;
 	
 	@Override
 	/*An onCreate method/function is what is called when a screen is first showed.
@@ -51,27 +40,16 @@ package org.academicode.tipcalculator;
 		
 		//How the activity actually looks is inside main.xml, inside the layout folder
 		setContentView(R.layout.main);
-
-        //How the activity actually looks is inside the signUp.xml, inside the layout folder
-        setContentView(R.layout.signUp);
 		
 		// The edit text has a string value set by the edit Text IDs in Main.xml
-		et = (EditText) findViewById(R.id.main_username_input);
+		et = (EditText) findViewById(R.id.main_nickname_input);
         et2 = (EditText) findViewById(R.id.main_password_input);
-
-        // The edit text has a string value set by the edit Text Ids in the signup.xml
-        et3 = (EditText) findViewById(R.id.signUp_username_input);
-        et4 = (EditText) findViewById(R.id.signUp_password_input);
-        et5 = (EditText) findViewById(R.id.sigUp_nickname_input);
 
 
 		
 		//The buttons have parameters corresponding to the IDs in Main.xml
-		signIn = (Button) findViewById(R.id.signIn);
-		signUp = (Button) findViewById(R.id.signUp);
-
-        //The button has parameters corresponding to its ID in the signUp.xml
-        CreateNewUser = (Button) findViewByID(R.id.CreateNewUser)
+		signIn = (Button) findViewById(R.id.main_signIn);
+		signUp = (Button) findViewById(R.id.main_signUp);
 		
 		/*The buttons now have onClickListeners set, a method/function of the button class
 		 * to start a new activity/intent when pressed. In this case, pressing a button
@@ -79,7 +57,6 @@ package org.academicode.tipcalculator;
 		 * */
 		signIn.setOnClickListener(this);
 		signUp.setOnClickListener(this);
-        createNewUser.setOnClickListener(this);
 	}
 
 	@Override
@@ -117,9 +94,6 @@ package org.academicode.tipcalculator;
 		//Pulls the input from the EditText
 		String text = et.getText().toString();
         String text2 = et2.getText().toString();
-        String text3 = et3.getText().toString();
-        String text4 = et4.getText().toString();
-        String text5 = et5.getText().toString();
 		
 		//If the user tried to proceed without entering a value
 		if(text.equals(""))
@@ -132,10 +106,10 @@ package org.academicode.tipcalculator;
         else if(text2.equals("") || text3.equals("") || text4.equals("") || text5.equals(""))
         {
             //Show a toast telling them they need to enter a username, password, or nickname rspctly. Text is pulled from strings.xml
-            Toast.makeText(signUp.this, geResources().getString(r.string.error_et2), Toast.LENGTH_LONG).show();
-            Toast.makeText(signUp.this, geResources().getString(r.string.error_et3), Toast.LENGTH_LONG).show();
-            Toast.makeText(signUp.this, geResources().getString(r.string.error_et4), Toast.LENGTH_LONG).show();
-            Toast.makeText(signUp.this, geResources().getString(r.string.error_et5), Toast.LENGTH_LONG).show();
+            Toast.makeText(Main.this, geResources().getString(r.string.error_et2), Toast.LENGTH_LONG).show();
+            Toast.makeText(Main.this, geResources().getString(r.string.error_et3), Toast.LENGTH_LONG).show();
+            Toast.makeText(Main.this, geResources().getString(r.string.error_et4), Toast.LENGTH_LONG).show();
+            Toast.makeText(Main.this, geResources().getString(r.string.error_et5), Toast.LENGTH_LONG).show();
             //Breaks out of the onClick, as we do not want to launch a new Activity without entered values
             return;
         }
@@ -161,7 +135,7 @@ package org.academicode.tipcalculator;
 		 * the startActivity method. Basic intents take two arguments, the current class(.java) and the class(.java) that the app will move to
 		 *  The line below initializes an Intent named resultActivity and passes in (Main.this,Result.class) much like the this-> pointer in C++,
 		 *  the this keyword in java is used by classes to reference themselves*/
-		Intent resultActivity = new Intent(Main.this, Result.class);
+		Intent resultActivity = new Intent(Main.this, SignUp.class);
 		
 		/*Since this method is private, if we want the Result Activity/class to access it's members (the strings TAG_TIP and TAG_GRAND_TOTAL),
 		 *we can "push" members from the Main Acivity/class to Result, much like how a friend function can "pull" private members from objects
