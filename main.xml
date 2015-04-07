@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
@@ -26,7 +27,7 @@
 
     <!-- A view that prompts the user to enter a bill -->
     <TextView
-        android:id="@+id/signup_"
+        android:id="@+id/main_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/main_title"
@@ -41,36 +42,36 @@
 
     <!-- Button for 20% tip -->
     <EditText
-        android:id="@+id/signUp_username_input"
+        android:id="@+id/main_nickname_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:hint="@string/main_promptText_1"
         android:ems="10"
         android:inputType="numberDecimal"
-        android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/signUp_password_input" />
+        android:layout_below="@+id/logo_chatterbox"
+        android:layout_alignLeft="@+id/main_password_input"
+        android:layout_marginTop="39dp" />
 
     <EditText
-        android:id="@+id/signUp_password_input"
+        android:id="@+id/main_password_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:hint="@string/main_promptText_2"
         android:ems="10"
-        android:inputType="numberDecimal"
-        android:layout_alignTop="@+id/signUp_password"
-        android:layout_centerHorizontal="true">
-
-        <requestFocus />
-    </EditText>
+        android:inputType="textPassword"
+        android:layout_marginTop="39dp"
+        android:layout_below="@+id/main_nickname_input"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:id="@+id/main_signUp"
         android:text="@string/main_signUp"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/main_signIn"
-        android:layout_alignBottom="@+id/main_signIn"
-        android:layout_alignRight="@+id/signup_" />
+        android:layout_alignTop="@+id/main_signIn"
+        android:layout_alignRight="@+id/main_title" />
 
     <!-- Button for 15% tip -->
     <Button
@@ -79,38 +80,19 @@
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_below="@+id/signUp_password_input"
-        android:layout_alignLeft="@+id/signup_" />
+        android:layout_below="@+id/main_password_input"
+        android:layout_alignLeft="@+id/main_title" />
 
     <!-- The text in this line is not a background. Must find a way to make it anonymous -->
-
-    <TextView
-        android:id="@+id/main_username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/main_promptText_1"
-        android:textSize="20sp"
-        android:layout_alignTop="@+id/signUp_username_input"
-        android:layout_alignLeft="@+id/signUp_password" />
-
-    <TextView
-        android:id="@+id/signUp_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/main_promptText_2"
-        android:textSize="20sp"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/signUp_username_input"
-        android:layout_centerHorizontal="true" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/signUp_username"
+        android:id="@+id/logo_chatterbox"
         android:src="@drawable/chatterbox_logo"
-        android:layout_below="@+id/signup_"
-        android:layout_alignRight="@+id/main_username"
-        android:layout_marginTop="20dp" />
+        android:layout_below="@+id/main_title"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true" />
     <!-- Button for 10% tip -->
 
     <!-- Text view for "select tip" on the main menu-->

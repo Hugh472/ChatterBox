@@ -34,24 +34,28 @@
 
 
     <EditText
-        android:id="@+id/signUp_username_input"
+        android:id="@+id/signUp_nickname_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:hint="@string/main_promptText_1"
         android:ems="10"
         android:inputType="numberDecimal"
-        android:layout_alignTop="@+id/signUp_username"
-        android:layout_alignLeft="@+id/signUp_password_input" />
+        android:layout_marginTop="45dp"
+        android:layout_below="@+id/signUp_password_input"
+        android:layout_alignRight="@+id/signUp_password_input" />
 
     <EditText
         android:id="@+id/signUp_password_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:hint="@string/main_promptText_2"
         android:ems="10"
-        android:inputType="numberDecimal"
-        android:layout_alignTop="@+id/signUp_password"
-        android:layout_centerHorizontal="true">
+        android:inputType="textPassword"
+        android:layout_marginTop="18dp"
+        android:layout_below="@+id/signUp_email_input"
+        android:layout_alignRight="@+id/signUp_email_input">
 
         <requestFocus />
     </EditText>
@@ -60,55 +64,27 @@
         android:id="@+id/signUp_email_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:hint="@string/signUp_promptText"
         android:gravity="center"
         android:ems="10"
-        android:inputType="numberDecimal"
-        android:layout_marginBottom="17dp"
-        android:layout_above="@+id/signUp_password_input"
-        android:layout_alignLeft="@+id/signUp_password_input" />
+        android:inputType="textEmailAddress"
+        android:layout_below="@+id/logo_chatterbox"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp" />
 
     <!-- Button for 15% tip -->
 
     <!-- The text in this line is not a background. Must find a way to make it anonymous -->
 
 
-    <TextView
-        android:id="@+id/signUp_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/signUp_promptText"
-        android:textSize="20sp"
-        android:layout_alignTop="@+id/signUp_email_input"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:id="@+id/signUp_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/main_promptText_2"
-        android:textSize="20sp"
-        android:layout_above="@+id/signUp_username_input"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="70dp" />
-
-    <TextView
-        android:id="@+id/signUp_username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/main_promptText_1"
-        android:textSize="20sp"
-        android:layout_above="@+id/signUp_signUp"
-        android:layout_alignLeft="@+id/signUp_password"
-        android:layout_marginBottom="25dp" />
-
     <Button
         android:id="@+id/signUp_signUp"
         android:text="@string/signUp_signUp"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="66dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/signUp_nickname_input"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -116,9 +92,9 @@
         android:id="@+id/logo_chatterbox"
         android:focusableInTouchMode="false"
         android:src="@drawable/chatterbox_logo"
-        android:layout_above="@+id/signUp_email_input"
-        android:layout_alignRight="@+id/signUp_username"
-        android:layout_marginBottom="22dp" />
+        android:layout_marginTop="38dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
     <!-- Button for 10% tip -->
 

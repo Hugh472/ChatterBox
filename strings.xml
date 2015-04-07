@@ -3,13 +3,13 @@
     <!-- strings.xml is where all the values of the strings used in your views are stored.
     They are referenced in the .xml files, which are subsequently used in your code (.java files) -->
 
-    <string name="app_name">TipCalculator</string>
+    <string name="app_name">Chatterbox</string>
 
     <!-- Main.xml Strings -->
     <string name="main_title">Welcome to Chatterbox bitches!</string>
 
     <!-- Main page strings -->
-    <string name="main_promptText_1">Username</string>
+    <string name="main_promptText_1">Nickname</string>
     <string name="main_promptText_2">Password</string>
     <string name="main_signIn">Sign in</string>
     <string name="main_signUp">Sign up</string>
