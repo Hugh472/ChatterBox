@@ -1,0 +1,26 @@
+<resources>
+
+    <!-- strings.xml is where all the values of the strings used in your views are stored.
+    They are referenced in the .xml files, which are subsequently used in your code (.java files) -->
+
+    <string name="app_name">Chatterbox</string>
+
+    <!-- Main.xml Strings -->
+    <string name="login_title">Welcome to Chatterbox bitches!</string>
+
+    <!-- Main page strings -->
+    <string name="login_promptText_1">Nickname</string>
+    <string name="login_promptText_2">Password</string>
+    <string name="login_signIn">Sign in</string>
+    <string name="login_signUp">Sign up</string>
+
+    <!-- signup page strings -->
+    <string name="signUp_promptText">E-mail</string>
+    <string name="signUp_signUp">Create Account!</string>
+
+    <!--  Error Strings -->
+    <string name="error_et">Oops! Please enter a value as your total bill.</string>
+
+    <string name="icon_description">This is the Chatterbox logo.</string>
+
+</resources>
