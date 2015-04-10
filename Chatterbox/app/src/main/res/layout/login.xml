@@ -1,72 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
-    android:longClickable="false">
+    android:longClickable="false"
+    android:orientation="vertical">
 
 
     <TextView
         android:id="@+id/login_title"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
         android:text="@string/login_title"
+        android:layout_weight=".5"
         android:textSize="20sp"
-        android:layout_marginTop="25dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginTop="25dp"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/logo_chatterbox"
+        android:layout_weight=".3"
+        android:src="@drawable/chatterbox_logo"
+        android:contentDescription="@string/icon_description" />
 
 
     <EditText
         android:id="@+id/login_nickname_input"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
         android:gravity="center"
+        android:layout_width="300dp"
         android:hint="@string/login_promptText_1"
+        android:layout_weight=".5"
         android:ems="10"
-        android:inputType="numberDecimal"
-        android:layout_below="@+id/logo_chatterbox"
-        android:layout_alignLeft="@+id/login_password_input"
-        android:layout_marginTop="39dp" />
+        android:inputType="numberDecimal" />
 
     <EditText
         android:id="@+id/login_password_input"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
         android:gravity="center"
+        android:layout_width="300dp"
         android:hint="@string/login_promptText_2"
+        android:layout_weight=".5"
         android:ems="10"
-        android:inputType="textPassword"
-        android:layout_marginTop="39dp"
-        android:layout_below="@+id/login_nickname_input"
-        android:layout_centerHorizontal="true" />
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/login_signUp"
         android:text="@string/login_signUp"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/login_signIn"
-        android:layout_alignRight="@+id/login_title" />
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_weight=".5"
+        android:clickable="true" />
 
     <Button
         android:id="@+id/login_signIn"
         android:text="@string/login_signIn"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/login_password_input"
-        android:layout_alignLeft="@+id/login_title" />
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_weight=".5"
+        android:clickable="true" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/logo_chatterbox"
-        android:src="@drawable/chatterbox_logo"
-        android:layout_below="@+id/login_title"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"
-        android:contentDescription="@string/icon_description" />
-
-</RelativeLayout>
+</LinearLayout>

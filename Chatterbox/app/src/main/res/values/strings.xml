@@ -6,7 +6,7 @@
     <string name="app_name">Chatterbox</string>
 
     <!-- Main.xml Strings -->
-    <string name="login_title">Welcome to Chatterbox bitches!</string>
+    <string name="login_title">Welcome to Chatterbox!</string>
 
     <!-- Main page strings -->
     <string name="login_promptText_1">Nickname</string>
@@ -22,5 +22,9 @@
     <string name="error_et">Oops! Please enter a value as your total bill.</string>
 
     <string name="icon_description">This is the Chatterbox logo.</string>
+
+    <string name="hello_world">hello world</string>
+
+    <string name="action_settings">Settings</string>
 
 </resources>
