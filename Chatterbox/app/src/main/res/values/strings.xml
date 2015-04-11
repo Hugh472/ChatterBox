@@ -16,14 +16,17 @@
 
     <!-- signup page strings -->
     <string name="signUp_promptText">E-mail</string>
-    <string name="signUp_signUp">Create Account!</string>
+    <string name="signUp_signUp">Send Confirmation Code</string>
 
+    <!--email confirm page strings-->
+    <string name="confirm_hint">Please enter the passcode.</string>
+    <string name="confirm_create">Create Account!</string>
     <!--  Error Strings -->
     <string name="error_et">Oops! Please enter a value as your total bill.</string>
 
     <string name="icon_description">This is the Chatterbox logo.</string>
 
-    <string name="hello_world">hello world</string>
+    <string name="main_hello_world">This screen needs tab features.</string>
 
     <string name="action_settings">Settings</string>
 
