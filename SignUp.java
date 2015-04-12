@@ -28,7 +28,8 @@ public class SignUp extends Activity{
         Context SignUpContext = getApplicationContent();
         CharSequence SignUpFail = "Please enter a nickname/password of 12 charachters or less";
 
-        public void SignUp(Button, Button){
+        public void SignUp(Button, Button)
+    {
 
         if(passwordLength > 12 || nicknameLength >12 )
         {
@@ -41,17 +42,10 @@ public class SignUp extends Activity{
             startActivity(toMainFromSignUp);
         }
 
-
-
-
     }
 
 
-
-    
-
-
-
+   }
 
 }
 
