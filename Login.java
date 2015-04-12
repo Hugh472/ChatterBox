@@ -1,8 +1,10 @@
 package com.ec327.chatterbox.chatterbox;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.widget.Button;
+import android.content.Intent;
 import android.widget.EditText;
 
 /**
@@ -17,6 +19,36 @@ public class Login extends Activity{
 
         Button signIn = (Button) findViewById(R.id.login_signIn);
         Button signUp = (Button) findViewById(R.id.login_signUp);
+
+        Context LogInContext = getApplicationContent();
+        CharSequence LoginFAIL = "Invalid nickname & password";
+
+        public void LoginSignIn(Button, Button)
+    {
+        if((et.getString().toString() == "Cynergy" && et2 == "Joonho123") || (et.getString().toString()) == "Chatterbox" && et2.getString().toString() == "Ved123") )
+        {
+
+
+            Intent toMain = new Intent(this, Main.class);
+            startActivity(toMain);
+        }
+
+    else
+        {
+        Toast.makeText(LongInConext, LoginFAIL, Toast.LENGTH_LONG).show();
+        }
     }
 
-}
+
+    public void LoginSignUp()
+    {
+
+
+       Intent toSignUp = new Intent(this,toSignUp.class);
+       startActivity(toSignUp);
+
+    }
+
+    }
+
+
