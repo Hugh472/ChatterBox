@@ -1,54 +1,52 @@
 package com.ec327.chatterbox.chatterbox;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.widget.Button;
 import android.content.Intent;
+import android.support.v7.app.ActionBarActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
-/**
- * Created by Mason D. Hahn on 4/7/2015.
- */
-public class Login extends Activity{
+public class Login extends ActionBarActivity {
 
-    protected void onCreate(Bundle savedInstanceState){
+    EditText et;
+    EditText et2;
+
+    Context LogInContext;
+    CharSequence LoginFAIL;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        EditText et = (EditText) findViewById(R.id.login_nickname_input);
-        EditText et2 = (EditText) findViewById(R.id.login_password_input);
+        setContentView(R.layout.login);
 
-        Button signIn = (Button) findViewById(R.id.login_signIn);
-        Button signUp = (Button) findViewById(R.id.login_signUp);
+        et = (EditText) findViewById(R.id.login_nickname_input);
+        et2 = (EditText) findViewById(R.id.login_password_input);
+    }
 
-        Context LogInContext = getApplicationContent();
-        CharSequence LoginFAIL = "Invalid nickname & password";
-
-        public void LoginSignIn(Button, Button)
+    public void LoginSignIn(View view)
     {
-        if((et.getString().toString() == "Cynergy" && et2 == "Joonho123") || (et.getString().toString()) == "Chatterbox" && et2.getString().toString() == "Ved123") )
+
+        LogInContext = getApplicationContext();
+        LoginFAIL = "Invalid nickname & password";
+
+        if(( (et.getText().toString() == "Cynergy") && (et2.getText().toString() == "Joonho123")) || ((et.getText().toString()) == "Chatterbox") && (et2.getText().toString() == "Ved123"))
         {
-
-
-            Intent toMain = new Intent(this, Main.class);
+            Intent toMain = new Intent(this, Mainscreen.class);
             startActivity(toMain);
-        }
-
-    else
-        {
-        Toast.makeText(LongInConext, LoginFAIL, Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(LogInContext, LoginFAIL, Toast.LENGTH_LONG).show();
         }
     }
 
 
-    public void LoginSignUp()
+    public void LoginSignUp(View view)
     {
-
-
-       Intent toSignUp = new Intent(this,toSignUp.class);
-       startActivity(toSignUp);
-
-    }
-
+        Intent toSignUp = new Intent(this,SignUp.class);
+        startActivity(toSignUp);
     }
 
 }

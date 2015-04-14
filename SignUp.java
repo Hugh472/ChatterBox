@@ -1,51 +1,56 @@
 package com.ec327.chatterbox.chatterbox;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.view.View;
 import android.widget.Button;
 import android.content.Intent;
 import android.widget.EditText;
+import android.widget.Toast;
 
-/**
- * Created by Mason D. Hahn on 4/7/2015.
- */
-public class SignUp extends Activity{
+public class SignUp extends ActionBarActivity {
 
+    EditText newEmail;
+    EditText newPassword;
+    EditText newNickname;
 
+    public int passwordLength;
+    public int nicknameLength;
+    Button signUp = (Button) findViewById(R.id.signUp_signUp);
 
-    protected void onCreate(savedInstanceState)
+    Context SignUpContext = getApplicationContext();
+    CharSequence SignUpFail = "Please enter a nickname/password of 12 characters or less";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState)
     {
+        Intent intent = getIntent();
         super.onCreate(savedInstanceState);
-        EditText newEmail = (EditText) findViewById(R.id.signUp_email_input);
-        EditText newPassword = (EditText) findViewById(R.id.signUp_password_input);
-        EditText newNickname = (EditText) findViewById(R.id.signUp_nickname_input);
+        setContentView(R.layout.signup);
 
-        public int passwordLength = newPassword.length();
-        public int nicknameLength = newNickname.length();
-        Button signUp = (Button) findViewById(R.id.signUp_signUp);
+        newEmail = (EditText) findViewById(R.id.signUp_email_input);
+        newPassword = (EditText) findViewById(R.id.signUp_password_input);
+        newNickname = (EditText) findViewById(R.id.signUp_nickname_input);
+    }
 
-        Context SignUpContext = getApplicationContent();
-        CharSequence SignUpFail = "Please enter a nickname/password of 12 charachters or less";
-
-        public void SignUp(Button, Button)
+    public void toConfirm(View view)
     {
+
+        passwordLength = newPassword.length();
+        nicknameLength = newNickname.length();
 
         if(passwordLength > 12 || nicknameLength >12 )
         {
-            Toast.makeText(SignUpContext, SignUpFAIL, Toast.LENGTH_LONG).show();
+            Toast.makeText(SignUpContext, SignUpFail, Toast.LENGTH_LONG).show();
         }
         else if(passwordLength <= 12 && nicknameLength <= 12)
-
         {
-            Intent toMainFromSignUp = new Intent(this, Main.class);
+            Intent toMainFromSignUp = new Intent(this, EmailConfirm.class);
             startActivity(toMainFromSignUp);
         }
 
     }
 
 
-   }
-
 }
-
