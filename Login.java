@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -29,23 +28,21 @@ public class Login extends ActionBarActivity {
 
     public void LoginSignIn(View view)
     {
-
         LogInContext = getApplicationContext();
         LoginFAIL = "Invalid nickname & password";
 
-        if(( (et.getText().toString() == "Cynergy") && (et2.getText().toString() == "Joonho123")) || ((et.getText().toString()) == "Chatterbox") && (et2.getText().toString() == "Ved123"))
+        if(et.getText().toString().equals("Cynergy") && et2.getText().toString().equals("Joonho123"))
         {
-            Intent toMain = new Intent(this, Mainscreen.class);
-            startActivity(toMain);
+            Intent toMyShows = new Intent(this, MyShows.class);
+            startActivity(toMyShows);
         } else {
             Toast.makeText(LogInContext, LoginFAIL, Toast.LENGTH_LONG).show();
         }
     }
 
-
     public void LoginSignUp(View view)
     {
-        Intent toSignUp = new Intent(this,SignUp.class);
+        Intent toSignUp = new Intent(this, SignUp.class);
         startActivity(toSignUp);
     }
 

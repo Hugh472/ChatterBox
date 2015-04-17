@@ -5,24 +5,30 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 /**
  * Created by Mason D. Hahn on 4/7/2015.
  */
-public class MyActivity extends ActionBarActivity {
+public class Filter extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.myactivity);
+        setContentView(R.layout.filter);
+    }
+
+    public void updateFilter(View view){
+        Intent toMain = new Intent(this, Mainscreen.class);
+        startActivity(toMain);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_myactivity, menu);
+        getMenuInflater().inflate(R.menu.menu_mainscreen, menu);
         return true;
     }
 
@@ -40,13 +46,21 @@ public class MyActivity extends ActionBarActivity {
         } else if (id == R.id.action_myShows) {
             toMyShows();
             return true;
+        } else if (id == R.id.action_myActivity) {
+            toMyActivity();
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
     private void toAddShows() {
-        Intent intent = new Intent(this,AddShows.class);
+        Intent intent = new Intent(this, AddShows.class);
+        startActivity(intent);
+    }
+
+    private void toMyActivity() {
+        Intent intent = new Intent(this,MyActivity.class);
         startActivity(intent);
     }
 

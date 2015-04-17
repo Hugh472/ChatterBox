@@ -3,15 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddShows">
+    tools:context=".Filter">
 
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/done"
-        android:id="@+id/addshows_add"
+        android:id="@+id/filter_update"
         android:layout_gravity="right"
-        android:gravity="center"
-        android:onClick="addShowsToList" />
+        android:layout_weight="0"
+        android:onClick="updateFilter" />
 </LinearLayout>

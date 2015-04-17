@@ -1,5 +1,6 @@
 package com.ec327.chatterbox.chatterbox;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -14,12 +15,14 @@ public class Mainscreen extends ActionBarActivity {
         setContentView(R.layout.mainscreen);
     }
 
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_mainscreen, menu);
         return true;
     }
 
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -27,12 +30,32 @@ public class Mainscreen extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_addShows) {
+            toAddShows();
+            return true;
+        } else if (id == R.id.action_filter) {
+            toFilter();
+            return true;
+        } else if (id == R.id.action_myActivity) {
+            toMyActivity();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
+    private void toAddShows() {
+        Intent intent = new Intent(this, AddShows.class);
+        startActivity(intent);
+    }
 
+    private void toMyActivity() {
+        Intent intent = new Intent(this,MyActivity.class);
+        startActivity(intent);
+    }
+
+    private void toFilter() {
+        Intent intent = new Intent(this,Filter.class);
+        startActivity(intent);
+    }
 }

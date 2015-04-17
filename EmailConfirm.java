@@ -1,12 +1,20 @@
 package com.ec327.chatterbox.chatterbox;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
-/**
- * Created by Mason D. Hahn on 4/7/2015.
- */
+
 public class EmailConfirm extends ActionBarActivity {
+
+    EditText et;
+
+    Context ConfirmContext;
+    CharSequence ConfirmFAIL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -14,4 +22,20 @@ public class EmailConfirm extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.emailconfirm);
     }
+
+    public void createAccount(View view){
+
+        et = (EditText) findViewById(R.id.confirm_passcode_input);
+        ConfirmContext = getApplicationContext();
+        ConfirmFAIL = "Wrong passcode.";
+
+        if(et.getText().toString().equals("12345"))
+        {
+            Intent toAddShows = new Intent(this, AddShows.class);
+            startActivity(toAddShows);
+        } else {
+            Toast.makeText(ConfirmContext, ConfirmFAIL, Toast.LENGTH_LONG).show();
+        }
+    }
 }
+

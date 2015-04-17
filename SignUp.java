@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
-import android.widget.Button;
 import android.content.Intent;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -17,15 +16,13 @@ public class SignUp extends ActionBarActivity {
 
     public int passwordLength;
     public int nicknameLength;
-    Button signUp = (Button) findViewById(R.id.signUp_signUp);
 
-    Context SignUpContext = getApplicationContext();
-    CharSequence SignUpFail = "Please enter a nickname/password of 12 characters or less";
+    Context SignUpContext;
+    CharSequence SignUpFail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        Intent intent = getIntent();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup);
 
@@ -36,6 +33,9 @@ public class SignUp extends ActionBarActivity {
 
     public void toConfirm(View view)
     {
+
+        SignUpContext = getApplicationContext();
+        SignUpFail = "Please enter a nickname/password of 12 characters or less";
 
         passwordLength = newPassword.length();
         nicknameLength = newNickname.length();
@@ -51,6 +51,4 @@ public class SignUp extends ActionBarActivity {
         }
 
     }
-
-
 }

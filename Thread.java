@@ -9,20 +9,20 @@ import android.view.MenuItem;
 /**
  * Created by Mason D. Hahn on 4/7/2015.
  */
-public class MyActivity extends ActionBarActivity {
+public class Thread extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.myactivity);
+        setContentView(R.layout.thread);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_myactivity, menu);
+        getMenuInflater().inflate(R.menu.menu_mainscreen, menu);
         return true;
     }
 
@@ -37,8 +37,11 @@ public class MyActivity extends ActionBarActivity {
         if (id == R.id.action_addShows) {
             toAddShows();
             return true;
-        } else if (id == R.id.action_myShows) {
-            toMyShows();
+        } else if (id == R.id.action_filter) {
+            toFilter();
+            return true;
+        } else if (id == R.id.action_myActivity) {
+            toMyActivity();
             return true;
         }
 
@@ -46,12 +49,17 @@ public class MyActivity extends ActionBarActivity {
     }
 
     private void toAddShows() {
-        Intent intent = new Intent(this,AddShows.class);
+        Intent intent = new Intent(this, AddShows.class);
         startActivity(intent);
     }
 
-    private void toMyShows() {
-        Intent intent = new Intent(this,MyShows.class);
+    private void toMyActivity() {
+        Intent intent = new Intent(this,MyActivity.class);
+        startActivity(intent);
+    }
+
+    private void toFilter() {
+        Intent intent = new Intent(this,Filter.class);
         startActivity(intent);
     }
 }

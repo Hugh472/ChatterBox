@@ -2,7 +2,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".Mainscreen">
+    tools:context=".Thread">
 
     <item
         android:id="@+id/action_addShows"
@@ -11,14 +11,14 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_myActivity"
-        android:title="@string/action_myActivity"
+        android:id="@+id/action_filter"
+        android:title="@string/action_filter"
         android:orderInCategory="100"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_filter"
-        android:title="@string/action_filter"
+        android:id="@+id/action_myActivity"
+        android:title="@string/action_myActivity"
         android:orderInCategory="100"
         app:showAsAction="never" />
 </menu>
