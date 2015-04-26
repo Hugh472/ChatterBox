@@ -1,25 +1,62 @@
 package com.ec327.chatterbox.chatterbox;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TabHost;
 
+public class Mainscreen extends ListActivity {
 
-public class Mainscreen extends ActionBarActivity {
+    FragmentManager fragmentManager;
+    FragmentTransaction fragmentTransaction;
 
+    /* This is the Constructor in context of Java for the Android app. */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainscreen);
+
+        fragmentManager = getFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        CurrentShow fragment = new CurrentShow();
+        fragmentTransaction.add(R.id.main_showtitle, fragment);
+        fragmentTransaction.commit();
+
+        //Connects the thread screen with the cloud for thread updates and sync.
+
+        TabHost forums = (TabHost) findViewById(R.id.mainTabs);
+        forums.setup();
+
+        //Creates the format each tab button will show and displays the Episode tab.
+        TabHost.TabSpec spec1 = forums.newTabSpec("tab1");
+        spec1.setContent(R.id.main_episode);
+        spec1.setIndicator("Episode");
+        forums.addTab(spec1);
+
+        //Creates the format each tab button will show and displays the Seasons tab.
+        TabHost.TabSpec spec2 = forums.newTabSpec("tab2");
+        spec2.setContent(R.id.main_season);
+        spec2.setIndicator("Season");
+        forums.addTab(spec2);
+
+        //Creates the format each tab button will show and displays the Series tab.
+        TabHost.TabSpec spec3 = forums.newTabSpec("tab3");
+        spec3.setContent(R.id.main_series);
+        spec3.setIndicator("Series");
+        forums.addTab(spec3);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_mainscreen, menu);
-        return true;
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_mainscreen, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -32,9 +69,6 @@ public class Mainscreen extends ActionBarActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_addShows) {
             toAddShows();
-            return true;
-        } else if (id == R.id.action_filter) {
-            toFilter();
             return true;
         } else if (id == R.id.action_myActivity) {
             toMyActivity();
@@ -51,11 +85,6 @@ public class Mainscreen extends ActionBarActivity {
 
     private void toMyActivity() {
         Intent intent = new Intent(this,MyActivity.class);
-        startActivity(intent);
-    }
-
-    private void toFilter() {
-        Intent intent = new Intent(this,Filter.class);
         startActivity(intent);
     }
 }

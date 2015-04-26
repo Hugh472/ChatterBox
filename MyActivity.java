@@ -1,23 +1,32 @@
 package com.ec327.chatterbox.chatterbox;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-/**
- * Created by Mason D. Hahn on 4/7/2015.
- */
-public class MyActivity extends ActionBarActivity {
+import com.parse.ParseUser;
 
+public class MyActivity extends Activity {
+
+    /* This is the Constructor in context of Java for the Android app. */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.myactivity);
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if (currentUser == null) {
+            loadLoginView();
+        }
     }
-
+    private void loadLoginView() {
+        Intent intent = new Intent(this, Login.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

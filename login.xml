@@ -59,8 +59,8 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_weight="0"
-        android:onClick="LoginSignIn" />
+        android:layout_weight="0" />
+        <!--android:onClick="LoginSignIn" -->
 
     <Button
         android:id="@+id/login_signUp"
@@ -70,7 +70,7 @@
         android:layout_marginBottom="3dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0"
-        android:onClick = "LoginSignUp" />
+        android:layout_weight="0" />
+        <!--android:onClick = "LoginSignUp"-->
 
 </LinearLayout>

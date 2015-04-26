@@ -2,16 +2,14 @@ package com.ec327.chatterbox.chatterbox;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-/**
- * Created by Mason D. Hahn on 4/7/2015.
- */
-public class MyShows extends ActionBarActivity {
+public class MyShows extends FragmentActivity {
 
+    /* This is the Constructor in context of Java for the Android app. */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -19,15 +17,10 @@ public class MyShows extends ActionBarActivity {
         setContentView(R.layout.myshows);
     }
 
-    public void openForum(View view){
-        Intent toMain = new Intent(this,Mainscreen.class);
-        startActivity(toMain);
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_mainscreen, menu);
+        getMenuInflater().inflate(R.menu.menu_myshows, menu);
         return true;
     }
 
@@ -58,5 +51,35 @@ public class MyShows extends ActionBarActivity {
     private void toMyActivity() {
         Intent intent = new Intent(this,MyActivity.class);
         startActivity(intent);
+    }
+
+    //Moves to the Mainscreen activity.
+    public void openForum(View view){
+        Intent toMain = new Intent(this,Mainscreen.class);
+        if(view.getId() == R.id.arrowbutton)
+            toMain.addFlags(1);
+        else if(view.getId() == R.id.darebutton)
+            toMain.addFlags(2);
+        else if(view.getId() == R.id.flashbutton)
+            toMain.addFlags(3);
+        else if(view.getId() == R.id.fobbutton)
+            toMain.addFlags(4);
+        else if(view.getId() == R.id.gotbutton)
+            toMain.addFlags(5);
+        else if(view.getId() == R.id.greybutton)
+            toMain.addFlags(6);
+        else if(view.getId() == R.id.hocbutton)
+            toMain.addFlags(7);
+        else if(view.getId() == R.id.madbutton)
+            toMain.addFlags(8);
+        else if(view.getId() == R.id.murderbutton)
+            toMain.addFlags(9);
+        else if(view.getId() == R.id.oncebutton)
+            toMain.addFlags(10);
+        else if(view.getId() == R.id.siliconbutton)
+            toMain.addFlags(11);
+        else if(view.getId() == R.id.the100button)
+            toMain.addFlags(12);
+        startActivity(toMain);
     }
 }

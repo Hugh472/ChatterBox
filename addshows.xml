@@ -7,11 +7,121 @@
 
     <Button
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_height="wrap_content"
         android:text="@string/done"
         android:id="@+id/addshows_add"
         android:layout_gravity="right"
         android:gravity="center"
         android:onClick="addShowsToList" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="@string/GOT"
+        android:onClick="addGOT"
+        android:id="@+id/toggle_GOT"
+        android:checked="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="@string/grey"
+        android:onClick="addGreysAnatomy"
+        android:id="@+id/toggle_grey"
+        android:checked="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="@string/dare"
+        android:onClick="addDaredevil"
+        android:id="@+id/toggle_dare"
+        android:checked="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="@string/flash"
+        android:onClick="addFlash"
+        android:id="@+id/toggle_flash"
+        android:checked="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="@string/the100"
+        android:onClick="add100"
+        android:id="@+id/toggle_100"
+        android:checked="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="@string/once"
+        android:onClick="addOnce"
+        android:id="@+id/toggle_once"
+        android:checked="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="@string/fob"
+        android:onClick="addFOB"
+        android:id="@+id/toggle_fob"
+        android:checked="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="@string/murder"
+        android:onClick="addMurder"
+        android:id="@+id/toggle_murder"
+        android:checked="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="@string/silicon"
+        android:onClick="addSilicon"
+        android:id="@+id/toggle_silicon"
+        android:checked="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="@string/mad"
+        android:onClick="addMad"
+        android:id="@+id/toggle_mad"
+        android:checked="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="@string/hoc"
+        android:onClick="addHOC"
+        android:id="@+id/toggle_hoc"
+        android:checked="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="@string/arrow"
+        android:onClick="addArrow"
+        android:id="@+id/toggle_arrow"
+        android:checked="true" />
 </LinearLayout>

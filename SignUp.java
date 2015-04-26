@@ -1,54 +1,85 @@
 package com.ec327.chatterbox.chatterbox;
 
-import android.content.Context;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.content.Intent;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-public class SignUp extends ActionBarActivity {
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SignUpCallback;
 
-    EditText newEmail;
-    EditText newPassword;
-    EditText newNickname;
+public class SignUp extends Activity {
 
-    public int passwordLength;
-    public int nicknameLength;
-
-    Context SignUpContext;
-    CharSequence SignUpFail;
+    protected EditText usernameEditText;
+    protected EditText passwordEditText;
+    protected EditText emailEditText;
+    protected Button signUpButton;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.signup);
 
-        newEmail = (EditText) findViewById(R.id.signUp_email_input);
-        newPassword = (EditText) findViewById(R.id.signUp_password_input);
-        newNickname = (EditText) findViewById(R.id.signUp_nickname_input);
-    }
+        usernameEditText = (EditText) findViewById(R.id.signUp_nickname_input);
+        passwordEditText = (EditText) findViewById(R.id.signUp_password_input);
+        emailEditText = (EditText) findViewById(R.id.signUp_email_input);
+        signUpButton = (Button) findViewById(R.id.signUp_signUp);
 
-    public void toConfirm(View view)
-    {
+        signUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String username = usernameEditText.getText().toString();
+                String password = passwordEditText.getText().toString();
+                String email = emailEditText.getText().toString();
 
-        SignUpContext = getApplicationContext();
-        SignUpFail = "Please enter a nickname/password of 12 characters or less";
+                username = username.trim();
+                password = password.trim();
+                email = email.trim();
 
-        passwordLength = newPassword.length();
-        nicknameLength = newNickname.length();
+                if (username.isEmpty() || password.isEmpty() || email.isEmpty()) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(SignUp.this);
+                    builder.setMessage(R.string.signup_error_message)
+                            .setTitle(R.string.signup_error_title)
+                            .setPositiveButton(android.R.string.ok, null);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                } else {
+                    setProgressBarIndeterminateVisibility(true);
 
-        if(passwordLength > 12 || nicknameLength >12 )
-        {
-            Toast.makeText(SignUpContext, SignUpFail, Toast.LENGTH_LONG).show();
-        }
-        else if(passwordLength <= 12 && nicknameLength <= 12)
-        {
-            Intent toMainFromSignUp = new Intent(this, EmailConfirm.class);
-            startActivity(toMainFromSignUp);
-        }
+                    ParseUser newUser = new ParseUser();
+                    newUser.setUsername(username);
+                    newUser.setPassword(password);
+                    newUser.setEmail(email);
+                    newUser.signUpInBackground(new SignUpCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            setProgressBarIndeterminateVisibility(false);
 
+                            if (e == null) {
+                                // Success!
+                                Intent intent = new Intent(SignUp.this, AddShows.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+                            } else {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(SignUp.this);
+                                builder.setMessage(e.getMessage())
+                                        .setTitle(R.string.signup_error_title)
+                                        .setPositiveButton(android.R.string.ok, null);
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
+                            }
+                        }
+                    });
+                }
+            }
+        });
     }
 }

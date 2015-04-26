@@ -1,16 +1,15 @@
 package com.ec327.chatterbox.chatterbox;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-/**
- * Created by Mason D. Hahn on 4/7/2015.
- */
-public class Thread extends ActionBarActivity {
 
+public class Thread extends Activity {
+
+    /* This is the Constructor in context of Java for the Android app. */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -18,11 +17,10 @@ public class Thread extends ActionBarActivity {
         setContentView(R.layout.thread);
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_mainscreen, menu);
+        getMenuInflater().inflate(R.menu.menu_thread, menu);
         return true;
     }
 
@@ -36,9 +34,6 @@ public class Thread extends ActionBarActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_addShows) {
             toAddShows();
-            return true;
-        } else if (id == R.id.action_filter) {
-            toFilter();
             return true;
         } else if (id == R.id.action_myActivity) {
             toMyActivity();
@@ -55,11 +50,6 @@ public class Thread extends ActionBarActivity {
 
     private void toMyActivity() {
         Intent intent = new Intent(this,MyActivity.class);
-        startActivity(intent);
-    }
-
-    private void toFilter() {
-        Intent intent = new Intent(this,Filter.class);
         startActivity(intent);
     }
 }
