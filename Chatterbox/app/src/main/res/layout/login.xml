@@ -1,27 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
     android:longClickable="false"
-    android:orientation="vertical">
-
-
-    <TextView
-        android:id="@+id/login_title"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:text="@string/login_title"
-        android:layout_weight=".48"
-        android:textSize="30sp"
-        android:layout_marginTop="25dp"/>
+    android:orientation="vertical"
+    tools:context=".Login">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/logo_chatterbox"
+        android:layout_marginBottom="30dp"
+        android:layout_gravity="center"
         android:layout_weight=".3"
         android:src="@drawable/chatterbox_logo"
         android:contentDescription="@string/icon_description" />
@@ -29,25 +22,34 @@
 
     <EditText
         android:id="@+id/login_nickname_input"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
         android:layout_width="300dp"
         android:hint="@string/login_promptText_1"
-        android:layout_weight=".5"
+        android:layout_weight="0"
         android:ems="10"
-        android:inputType="numberDecimal" />
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/login_password_input"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
         android:layout_width="300dp"
         android:hint="@string/login_promptText_2"
-        android:layout_weight=".5"
+        android:layout_weight="0"
         android:ems="10"
         android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/login_signIn"
+        android:text="@string/login_signIn"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="0" />
+        <!--android:onClick="LoginSignIn" -->
 
     <Button
         android:id="@+id/login_signUp"
@@ -55,18 +57,9 @@
         android:layout_width="300dp"
         android:layout_marginTop="3dp"
         android:layout_marginBottom="3dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_weight=".5"
-        android:onClick = "loginSignUp" />
-
-    <Button
-        android:id="@+id/login_signIn"
-        android:text="@string/login_signIn"
-        android:layout_width="300dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_weight=".5"
-        android:clickable="true" />
+        android:layout_weight="0" />
+        <!--android:onClick = "LoginSignUp"-->
 
 </LinearLayout>
