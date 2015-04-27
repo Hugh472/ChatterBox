@@ -5,10 +5,20 @@ import android.app.FragmentTransaction;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.TabHost;
+
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Mainscreen extends ListActivity {
 
@@ -86,5 +96,41 @@ public class Mainscreen extends ListActivity {
     private void toMyActivity() {
         Intent intent = new Intent(this,MyActivity.class);
         startActivity(intent);
+    }
+    private List<Comment> CommentList;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.mainscreen);
+
+        CommentList = new ArrayList<Comment>();
+        ArrayAdapter<Comment> adapter = new ArrayAdapter<Comment>(this, R.layout.list_item_layout, CommentList);
+        setListAdapter(adapter);
+
+        refreshCommentList();
+    }
+
+    private void refreshCommentList() {
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Comment");
+
+        query.findInBackground(new FindCallback<ParseObject>() {
+
+            @Override
+            public void done(List<ParseObject> postList, ParseException e) {
+                if (e == null) {
+                    // If there are results, update the list of posts
+                    // and notify the adapter
+                    CommentList.clear();
+                    for (ParseObject comment : CommentList) {
+                        Comment comment = new Comment(comment.getObjectId(),comment.getString("content"));
+                        CommentList.add(comment);
+                    }
+                    ((ArrayAdapter<CommentList>) getListAdapter()).notifyDataSetChanged();
+                } else {
+                    Log.d(getClass().getSimpleName(), "Error: " + e.getMessage());
+                }
+            }
+        });
     }
 }
