@@ -5,21 +5,35 @@ import android.app.FragmentTransaction;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.TabHost;
+
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Mainscreen extends ListActivity {
 
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
 
+    ArrayList<Thread> threads;
+
     /* This is the Constructor in context of Java for the Android app. */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainscreen);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
 
         fragmentManager = getFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
@@ -49,6 +63,12 @@ public class Mainscreen extends ListActivity {
         spec3.setContent(R.id.main_series);
         spec3.setIndicator("Series");
         forums.addTab(spec3);
+
+        threads = new ArrayList<>();
+        ArrayAdapter<Thread> adapter = new ArrayAdapter<>(this, R.layout.list_item_layout, threads);
+        setListAdapter(adapter);
+
+        refreshThreadList();
     }
 
     @Override
@@ -73,6 +93,15 @@ public class Mainscreen extends ListActivity {
         } else if (id == R.id.action_myActivity) {
             toMyActivity();
             return true;
+        } else if (id == R.id.action_createThread){
+            toCreateThread();
+            return true;
+        } else if(id == R.id.action_refresh){
+            refreshThreadList();
+            return true;
+        } else if(id == android.R.id.home){
+            toMyShows();
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -80,15 +109,56 @@ public class Mainscreen extends ListActivity {
 
     private void toAddShows() {
         Intent intent = new Intent(this, AddShows.class);
+        intent.putIntegerArrayListExtra("Choices",getIntent().getIntegerArrayListExtra("Choices"));
         startActivity(intent);
     }
 
     private void toMyActivity() {
         Intent intent = new Intent(this,MyActivity.class);
+        intent.putIntegerArrayListExtra("Choices",getIntent().getIntegerArrayListExtra("Choices"));
         startActivity(intent);
     }
 
-    private void openForum(){
+    private void toCreateThread() {
+        Intent intent = new Intent(this,CreateThread.class);
+        intent.addFlags(getIntent().getFlags());
+        intent.putIntegerArrayListExtra("Choices",getIntent().getIntegerArrayListExtra("Choices"));
+        startActivity(intent);
+    }
 
+    private void toMyShows() {
+        Intent intent = new Intent(this,MyShows.class);
+        intent.putIntegerArrayListExtra("Choices",getIntent().getIntegerArrayListExtra("Choices"));
+        startActivity(intent);
+    }
+
+    private void refreshThreadList() {
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Thread");
+        query.findInBackground(new FindCallback<ParseObject>() {
+
+            @Override
+            public void done(List<ParseObject> threadList, ParseException e) {
+                if (e == null) {
+                    // If there are results, update the list of posts
+                    // and notify the adapter
+                    threads.clear();
+                    for (ParseObject threadObject : threadList) {
+                        Thread thread = new Thread(threadObject.getObjectId(), threadObject.getString("title"));
+                        threads.add(thread);
+                    }
+                    ((ArrayAdapter<Thread>) getListAdapter()).notifyDataSetChanged();
+                } else {
+                    Log.d(getClass().getSimpleName(), "Error: " + e.getMessage());
+                }
+            }
+        });
+    }
+
+    public void toViewThread(View view){
+        Intent intent = new Intent(this,ViewThread.class);
+        intent.addFlags(getIntent().getFlags());
+        intent.putIntegerArrayListExtra("Choices",getIntent().getIntegerArrayListExtra("Choices"));
+        startActivity(intent);
     }
 }

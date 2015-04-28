@@ -49,7 +49,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="0" />
-        <!--android:onClick="LoginSignIn" -->
 
     <Button
         android:id="@+id/login_signUp"
@@ -60,6 +59,5 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_weight="0" />
-        <!--android:onClick = "LoginSignUp"-->
 
 </LinearLayout>

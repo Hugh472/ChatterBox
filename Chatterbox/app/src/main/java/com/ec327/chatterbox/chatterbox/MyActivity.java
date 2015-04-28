@@ -1,14 +1,25 @@
 package com.ec327.chatterbox.chatterbox;
 
-import android.app.Activity;
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-public class MyActivity extends Activity {
+import java.util.ArrayList;
+import java.util.List;
+
+public class MyActivity extends ListActivity {
+
+    ArrayList<Thread> threads;
 
     /* This is the Constructor in context of Java for the Android app. */
     @Override
@@ -16,10 +27,12 @@ public class MyActivity extends Activity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.myactivity);
-        ParseUser currentUser = ParseUser.getCurrentUser();
-        if (currentUser == null) {
-            loadLoginView();
-        }
+
+        threads = new ArrayList<>();
+        ArrayAdapter<Thread> adapter = new ArrayAdapter<>(this, R.layout.list_item_layout, threads);
+        setListAdapter(adapter);
+
+        refreshThreadList();
     }
     private void loadLoginView() {
         Intent intent = new Intent(this, Login.class);
@@ -49,6 +62,9 @@ public class MyActivity extends Activity {
         } else if (id == R.id.action_myShows) {
             toMyShows();
             return true;
+        } else if(id == R.id.action_refresh){
+            refreshThreadList();
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -56,11 +72,36 @@ public class MyActivity extends Activity {
 
     private void toAddShows() {
         Intent intent = new Intent(this,AddShows.class);
+        intent.putIntegerArrayListExtra("Choices",getIntent().getIntegerArrayListExtra("Choices"));
         startActivity(intent);
     }
 
     private void toMyShows() {
         Intent intent = new Intent(this,MyShows.class);
+        intent.putIntegerArrayListExtra("Choices",getIntent().getIntegerArrayListExtra("Choices"));
         startActivity(intent);
+    }
+
+    private void refreshThreadList() {
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery(ParseUser.getCurrentUser().toString());
+        query.findInBackground(new FindCallback<ParseObject>() {
+
+            @Override
+            public void done(List<ParseObject> threadList, ParseException e) {
+                if (e == null) {
+                    // If there are results, update the list of posts
+                    // and notify the adapter
+                    threads.clear();
+                    for (ParseObject threadObject : threadList) {
+                        Thread thread = new Thread(threadObject.getObjectId(), threadObject.getString("title"));
+                        threads.add(thread);
+                    }
+                    ((ArrayAdapter<Thread>) getListAdapter()).notifyDataSetChanged();
+                } else {
+                    Log.d(getClass().getSimpleName(), "Error: " + e.getMessage());
+                }
+            }
+        });
     }
 }

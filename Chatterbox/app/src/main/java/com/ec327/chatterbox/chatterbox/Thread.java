@@ -1,55 +1,54 @@
 package com.ec327.chatterbox.chatterbox;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+/**
+ * Created by Mason D. Hahn on 4/27/2015.
+ */
+public class Thread {
 
+    private String id;
+    private String title;
+    private String season;
+    private String content;
 
-public class Thread extends Activity {
+    Thread(String threadId, String threadTitle) {
+        id = threadId;
+        title = threadTitle;
+    }
 
-    /* This is the Constructor in context of Java for the Android app. */
-    @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.thread);
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getSeason() {
+        return season;
+    }
+
+    public void setSeason(String title) {
+        this.season = season;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_thread, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_addShows) {
-            toAddShows();
-            return true;
-        } else if (id == R.id.action_myActivity) {
-            toMyActivity();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void toAddShows() {
-        Intent intent = new Intent(this, AddShows.class);
-        startActivity(intent);
-    }
-
-    private void toMyActivity() {
-        Intent intent = new Intent(this,MyActivity.class);
-        startActivity(intent);
+    public String toString(){
+        return this.getTitle();
     }
 }

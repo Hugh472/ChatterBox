@@ -4,6 +4,12 @@
     tools:context=".MyActivity">
 
     <item
+        android:id="@+id/action_refresh"
+        android:title="@string/action_refresh"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+
+    <item
         android:id="@+id/action_addShows"
         android:title="@string/action_addShows"
         android:orderInCategory="100"

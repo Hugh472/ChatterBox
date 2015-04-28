@@ -1,8 +1,6 @@
 package com.ec327.chatterbox.chatterbox;
 
 import android.app.Activity;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,9 +12,20 @@ import java.util.ArrayList;
 
 public class AddShows extends Activity {
 
-    Intent toMyShows;
-    String choices;
     ArrayList<Integer> check;
+
+    Integer Flash;
+    Integer Dare;
+    Integer GOT;
+    Integer FOB;
+    Integer Grey;
+    Integer Arrow;
+    Integer Murder;
+    Integer HOC;
+    Integer Mad;
+    Integer Once;
+    Integer SV;
+    Integer The100;
 
     /* This is the Constructor in context of Java for the Android app. */
     @Override
@@ -25,16 +34,94 @@ public class AddShows extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addshows);
 
-        toMyShows = new Intent(this, MyShows.class);
-        choices = "Choices";
-        check = new ArrayList<Integer>(12);
+        check = new ArrayList<>(12);
+
+        Flash = 3;
+        Dare = 2;
+        GOT = 5;
+        FOB = 4;
+        Grey = 6;
+        Arrow = 1;
+        Murder = 9;
+        HOC = 7;
+        Mad = 8;
+        Once = 10;
+        SV = 11;
+        The100 = 12;
+
+        if(getIntent().hasExtra("Choices")){
+            ArrayList<Integer> recheck = getIntent().getIntegerArrayListExtra("Choices");
+
+            if (recheck.contains(5)) {
+                CheckBox toggleGOT = (CheckBox) findViewById(R.id.toggle_GOT);
+                toggleGOT.setChecked(true);
+                check.add(GOT);
+            }
+            if (recheck.contains(6)) {
+                CheckBox toggleGrey = (CheckBox) findViewById(R.id.toggle_grey);
+                toggleGrey.setChecked(true);
+                check.add(Grey);
+            }
+            if (recheck.contains(2)) {
+                CheckBox toggleDare = (CheckBox) findViewById(R.id.toggle_dare);
+                toggleDare.setChecked(true);
+                check.add(Dare);
+            }
+            if (recheck.contains(3)) {
+                CheckBox toggleFlash = (CheckBox) findViewById(R.id.toggle_flash);
+                toggleFlash.setChecked(true);
+                check.add(Flash);
+            }
+            if (recheck.contains(12)) {
+                CheckBox toggle100 = (CheckBox) findViewById(R.id.toggle_100);
+                toggle100.setChecked(true);
+                check.add(The100);
+            }
+            if (recheck.contains(10)) {
+                CheckBox toggleOnce = (CheckBox) findViewById(R.id.toggle_once);
+                toggleOnce.setChecked(true);
+                check.add(Once);
+            }
+            if (recheck.contains(4)) {
+                CheckBox toggleFOB = (CheckBox) findViewById(R.id.toggle_fob);
+                toggleFOB.setChecked(true);
+                check.add(FOB);
+            }
+            if (recheck.contains(9)) {
+                CheckBox toggleMurder = (CheckBox) findViewById(R.id.toggle_murder);
+                toggleMurder.setChecked(true);
+                check.add(Murder);
+            }
+            if (recheck.contains(11)) {
+                CheckBox toggleSilicon = (CheckBox) findViewById(R.id.toggle_silicon);
+                toggleSilicon.setChecked(true);
+                check.add(SV);
+            }
+            if (recheck.contains(8)) {
+                CheckBox toggleMad = (CheckBox) findViewById(R.id.toggle_mad);
+                toggleMad.setChecked(true);
+                check.add(Mad);
+            }
+            if (recheck.contains(7)) {
+                CheckBox toggleHOC = (CheckBox) findViewById(R.id.toggle_hoc);
+                toggleHOC.setChecked(true);
+                check.add(HOC);
+            }
+            if (recheck.contains(1)) {
+                CheckBox toggleArrow = (CheckBox) findViewById(R.id.toggle_arrow);
+                toggleArrow.setChecked(true);
+                check.add(Arrow);
+            }
+        }
     }
 
     /* This function is called in response to the 'done' button of the AddShows activity.
     * It basically returns the user to the  'Shows' screen, but in contrast to the back button
     * or the 'up' button, this function implements the change made in the list of shows to add.*/
     public void addShowsToList(View view){
-        toMyShows.putIntegerArrayListExtra(choices,check);
+        Intent toMyShows = new Intent(this, MyShows.class);
+        toMyShows.putIntegerArrayListExtra("Choices",check);
+        //Maybe in the future we'll add these show lists into the could so user can retrive it on myshows screen
         startActivity(toMyShows);
     }
 
@@ -65,7 +152,6 @@ public class AddShows extends Activity {
     public void addGOT(View view) {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
-        Integer GOT = 5;
 
         if (checked){
             check.add(GOT);
@@ -77,7 +163,6 @@ public class AddShows extends Activity {
     public void addGreysAnatomy(View view) {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
-        Integer Grey = 6;
 
         if (checked){
             check.add(Grey);
@@ -89,7 +174,6 @@ public class AddShows extends Activity {
     public void addDaredevil(View view) {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
-        Integer Dare = 2;
 
         if (checked){
             check.add(Dare);
@@ -101,7 +185,6 @@ public class AddShows extends Activity {
     public void addFlash(View view) {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
-        Integer Flash = 3;
 
         if (checked){
             check.add(Flash);
@@ -113,7 +196,6 @@ public class AddShows extends Activity {
     public void add100(View view) {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
-        Integer The100 = 12;
 
         if (checked){
             check.add(The100);
@@ -125,7 +207,6 @@ public class AddShows extends Activity {
     public void addOnce(View view) {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
-        Integer Once = 10;
 
         if (checked){
             check.add(Once);
@@ -137,7 +218,6 @@ public class AddShows extends Activity {
     public void addFOB(View view) {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
-        Integer FOB = 4;
 
         if (checked){
             check.add(FOB);
@@ -149,7 +229,6 @@ public class AddShows extends Activity {
     public void addMurder(View view) {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
-        Integer Murder = 9;
 
         if (checked){
             check.add(Murder);
@@ -161,7 +240,6 @@ public class AddShows extends Activity {
     public void addSilicon(View view) {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
-        Integer SV = 11;
 
         if (checked){
             check.add(SV);
@@ -173,7 +251,6 @@ public class AddShows extends Activity {
     public void addMad(View view) {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
-        Integer Mad = 8;
 
         if (checked){
             check.add(Mad);
@@ -185,7 +262,6 @@ public class AddShows extends Activity {
     public void addHOC(View view) {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
-        Integer HOC = 7;
 
         if (checked){
             check.add(HOC);
@@ -197,7 +273,6 @@ public class AddShows extends Activity {
     public void addArrow(View view) {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
-        Integer Arrow = 1;
 
         if (checked){
             check.add(Arrow);
@@ -209,6 +284,7 @@ public class AddShows extends Activity {
     /* This function brings the user to the MyActivity Activity*/
     private void toMyActivity() {
         Intent intent = new Intent(this,MyActivity.class);
+        intent.putIntegerArrayListExtra("Choices",getIntent().getIntegerArrayListExtra("Choices"));
         startActivity(intent);
     }
 }

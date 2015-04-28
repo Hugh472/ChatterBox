@@ -33,7 +33,7 @@
 
     <!--  Random uncategorized Strings -->
     <string name="error_et">Oops! Please enter a value as your total bill.</string>
-    <string name="done">Done</string>
+    <string name="update_list">Update</string>
     <string name="icon_description">This is the ChatterBox logo.</string>
     <string name="main_hello_world">This screen needs tab features.</string>
     <string name="thread">It\'s a photo</string>
@@ -41,7 +41,19 @@
     <!-- Action button titles-->
     <string name="action_addShows">Add Shows</string>
     <string name="action_myActivity">My Activity</string>
+    <string name="action_refresh">Refresh</string>
     <string name="action_myShows">My Shows</string>
+    <string name="action_createThread">Post Thread</string>
+
+    <!--CreateThread screen strings-->
+    <string name="ask_Title">Title</string>
+    <string name="ask_season">Season/Episode</string>
+    <string name="ask_content">Content</string>
+    <string name="post_thread">Post</string>
+    <string name="thread_title_hint">Title</string>
+    <string name="thread_content_hint">Content</string>
+    <string name="thread_error_message">Error for thread.</string>
+    <string name="thread_error_title">Please enter a title</string>
 
     <!-- Show Titles -->
     <string name="GOT">Game of Thrones</string>
