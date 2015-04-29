@@ -6,11 +6,14 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
 
-/**
- * Created by Mason D. Hahn on 4/27/2015.
- */
-public class ViewThread extends Activity{
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
+public class ViewThread extends Activity {
 
     /* This is the Constructor in context of Java for the Android app. */
     @Override
@@ -18,7 +21,34 @@ public class ViewThread extends Activity{
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.viewthread);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+
+        final TextView title = (TextView) findViewById(R.id.viewThread_Title);
+        final TextView season_episode = (TextView) findViewById(R.id.viewThread_Season);
+        final TextView writer = (TextView) findViewById(R.id.viewThread_Writer);
+        final TextView content = (TextView) findViewById(R.id.viewThread_Content);
+        final TextView comments  = (TextView) findViewById(R.id.viewThread_Comments);
+
+        String[] post = getIntent().getStringArrayExtra("Contents");
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery(post[0]);
+        query.getInBackground(post[1], new GetCallback<ParseObject>() {
+
+            @Override
+            public void done(ParseObject object, ParseException e) {
+                if (e == null) {
+                    // object will be your thread
+                    title.setText(object.getString("title"));
+                    season_episode.setText("<Season " + object.getString("season") + " Episode " + object.getString("episode") + ">");
+                    writer.setText("By " + object.getString("writer"));
+                    content.setText(object.getString("content"));
+                    if (object.getString("comments") == null) {
+                        comments.setText("");
+                        return;
+                    }
+                    comments.setText(object.getString("comments"));
+                }
+            }
+        });
     }
 
     @Override
@@ -46,8 +76,8 @@ public class ViewThread extends Activity{
         } else if (id == R.id.action_myShows){
             toMyShows();
             return true;
-        } else if(id == android.R.id.home){
-            toMainscreen();
+        } else if (id == R.id.action_addComment){
+            toAddComment();
             return true;
         }
 
@@ -56,26 +86,22 @@ public class ViewThread extends Activity{
 
     private void toAddShows() {
         Intent intent = new Intent(this, AddShows.class);
-        intent.putIntegerArrayListExtra("Choices",getIntent().getIntegerArrayListExtra("Choices"));
         startActivity(intent);
     }
 
     private void toMyActivity() {
         Intent intent = new Intent(this,MyActivity.class);
-        intent.putIntegerArrayListExtra("Choices",getIntent().getIntegerArrayListExtra("Choices"));
         startActivity(intent);
     }
 
     private void toMyShows() {
         Intent intent = new Intent(this,MyShows.class);
-        intent.putIntegerArrayListExtra("Choices",getIntent().getIntegerArrayListExtra("Choices"));
         startActivity(intent);
     }
 
-    private void toMainscreen() {
-        Intent intent = new Intent(this,Mainscreen.class);
-        intent.addFlags(getIntent().getFlags());
-        intent.putIntegerArrayListExtra("Choices",getIntent().getIntegerArrayListExtra("Choices"));
+    private void toAddComment() {
+        Intent intent = new Intent(this,AddComment.class);
+        intent.putExtra("Contents", getIntent().getStringArrayExtra("Contents"));
         startActivity(intent);
     }
 }

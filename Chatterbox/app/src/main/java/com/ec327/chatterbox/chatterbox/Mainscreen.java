@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TabHost;
 
 import com.parse.FindCallback;
@@ -28,6 +29,8 @@ public class Mainscreen extends ListActivity {
 
     ArrayList<Thread> threads;
 
+    String showTitle;
+
     /* This is the Constructor in context of Java for the Android app. */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +38,12 @@ public class Mainscreen extends ListActivity {
         setContentView(R.layout.mainscreen);
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
+        //The show icon is displayed on the top.
         fragmentManager = getFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         CurrentShow fragment = new CurrentShow();
         fragmentTransaction.add(R.id.main_showtitle, fragment);
         fragmentTransaction.commit();
-
-        //Connects the thread screen with the cloud for thread updates and sync.
 
         TabHost forums = (TabHost) findViewById(R.id.mainTabs);
         forums.setup();
@@ -65,7 +67,7 @@ public class Mainscreen extends ListActivity {
         forums.addTab(spec3);
 
         threads = new ArrayList<>();
-        ArrayAdapter<Thread> adapter = new ArrayAdapter<>(this, R.layout.list_item_layout, threads);
+        ArrayAdapter<Thread> adapter = new ArrayAdapter<>(this, R.layout.main_thread_layout, threads);
         setListAdapter(adapter);
 
         refreshThreadList();
@@ -109,32 +111,55 @@ public class Mainscreen extends ListActivity {
 
     private void toAddShows() {
         Intent intent = new Intent(this, AddShows.class);
-        intent.putIntegerArrayListExtra("Choices",getIntent().getIntegerArrayListExtra("Choices"));
         startActivity(intent);
     }
 
     private void toMyActivity() {
         Intent intent = new Intent(this,MyActivity.class);
-        intent.putIntegerArrayListExtra("Choices",getIntent().getIntegerArrayListExtra("Choices"));
         startActivity(intent);
     }
 
     private void toCreateThread() {
         Intent intent = new Intent(this,CreateThread.class);
         intent.addFlags(getIntent().getFlags());
-        intent.putIntegerArrayListExtra("Choices",getIntent().getIntegerArrayListExtra("Choices"));
         startActivity(intent);
     }
 
     private void toMyShows() {
         Intent intent = new Intent(this,MyShows.class);
-        intent.putIntegerArrayListExtra("Choices",getIntent().getIntegerArrayListExtra("Choices"));
         startActivity(intent);
     }
 
     private void refreshThreadList() {
 
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Thread");
+        //This line of loop specifies which type of show the mainscreen is displaying and at the same time
+        //specifies the parse query which type of show thread to receive from the cloud.
+        if (getIntent().getFlags() == 1)
+            showTitle = "Arrow_Thread";
+        else if (getIntent().getFlags() == 2)
+            showTitle = "Daredevil_Thread";
+        else if (getIntent().getFlags() == 3)
+            showTitle = "Flash_Thread";
+        else if (getIntent().getFlags()==4)
+            showTitle = "FOB_Thread";
+        else if (getIntent().getFlags()==5)
+            showTitle = "Game_of_Thrones_Thread";
+        else if (getIntent().getFlags()==6)
+            showTitle = "Greys_Anatomy_Thread";
+        else if (getIntent().getFlags()==7)
+            showTitle = "House_of_Cards_Thread";
+        else if (getIntent().getFlags()==8)
+            showTitle = "Madmen_Thread";
+        else if (getIntent().getFlags()==9)
+            showTitle = "How_to_Get_Away_With_Murder_Thread";
+        else if (getIntent().getFlags()==10)
+            showTitle = "Once_Upon_A_Time_Thread";
+        else if (getIntent().getFlags()==11)
+            showTitle = "Silicon_Valley_Thread";
+        else if (getIntent().getFlags()==12)
+            showTitle = "The_100_Thread";
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery(showTitle);
         query.findInBackground(new FindCallback<ParseObject>() {
 
             @Override
@@ -144,7 +169,7 @@ public class Mainscreen extends ListActivity {
                     // and notify the adapter
                     threads.clear();
                     for (ParseObject threadObject : threadList) {
-                        Thread thread = new Thread(threadObject.getObjectId(), threadObject.getString("title"));
+                        Thread thread = new Thread(threadObject.getObjectId(), threadObject.getString("title"), threadObject.getString("season"), threadObject.getString("episode"), threadObject.getString("writer"), threadObject.getString("content"), threadObject.getString("comments"));
                         threads.add(thread);
                     }
                     ((ArrayAdapter<Thread>) getListAdapter()).notifyDataSetChanged();
@@ -155,10 +180,13 @@ public class Mainscreen extends ListActivity {
         });
     }
 
-    public void toViewThread(View view){
-        Intent intent = new Intent(this,ViewThread.class);
-        intent.addFlags(getIntent().getFlags());
-        intent.putIntegerArrayListExtra("Choices",getIntent().getIntegerArrayListExtra("Choices"));
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        // Do something when a list item is clicked
+        Intent intent = new Intent(this, ViewThread.class);
+        Thread clicked = threads.get(position);
+        String[] contents = {showTitle, clicked.getId()};
+        intent.putExtra("Contents", contents);
         startActivity(intent);
     }
 }

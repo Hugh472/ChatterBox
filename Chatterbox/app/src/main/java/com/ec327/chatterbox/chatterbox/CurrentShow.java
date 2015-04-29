@@ -13,6 +13,9 @@ public class CurrentShow extends Fragment {
         // Inflate the layout for this fragment
         View setFragment;
 
+        //This fragment is the show icon fragment for the Mainscreen activity.
+        //The fragment gets the Flag info sent from the MyShows activity and figures out which show
+        //the user clicked.
         if(super.getActivity().getIntent().getFlags() == 1) {
             setFragment = inflater.inflate(R.layout.display_arrow, container, false);
         }else if(super.getActivity().getIntent().getFlags() == 2){

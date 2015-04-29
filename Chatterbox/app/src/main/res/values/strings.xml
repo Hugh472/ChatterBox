@@ -20,16 +20,15 @@
     <string name="sign_up_button_label">Sign Up</string>
     <string name="signup_error_message">Please enter all categories: nickname, password, and email address</string>
     <string name="signup_error_title">Error</string>
-    <string name="login_error_message">Please enter a nickname and a password.</string>
+    <string name="login_error_message">Please enter all fields.</string>
     <string name="login_error_title">Error</string>
 
     <!-- signup page strings -->
     <string name="signUp_promptText">E-mail</string>
-    <string name="signUp_signUp">Send Confirmation Code</string>
+    <string name="signUp_signUp">Create Account!</string>
 
-    <!--email confirm page strings-->
-    <string name="confirm_hint">Please enter the passcode.</string>
-    <string name="confirm_create">Create Account!</string>
+    <!-- Add Comment page string -->
+    <string name="comment_hint">Enter comment here.</string>
 
     <!--  Random uncategorized Strings -->
     <string name="error_et">Oops! Please enter a value as your total bill.</string>
@@ -44,16 +43,17 @@
     <string name="action_refresh">Refresh</string>
     <string name="action_myShows">My Shows</string>
     <string name="action_createThread">Post Thread</string>
+    <string name="action_addComment">Comment</string>
 
     <!--CreateThread screen strings-->
     <string name="ask_Title">Title</string>
     <string name="ask_season">Season/Episode</string>
     <string name="ask_content">Content</string>
     <string name="post_thread">Post</string>
-    <string name="thread_title_hint">Title</string>
-    <string name="thread_content_hint">Content</string>
     <string name="thread_error_message">Error for thread.</string>
     <string name="thread_error_title">Please enter a title</string>
+    <string name="thread_season_hint">Enter the season number.</string>
+    <string name="thread_episode_hint">Enter the episode number.</string>
 
     <!-- Show Titles -->
     <string name="GOT">Game of Thrones</string>

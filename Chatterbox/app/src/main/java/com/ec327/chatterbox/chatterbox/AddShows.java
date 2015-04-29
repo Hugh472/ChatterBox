@@ -8,6 +8,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 
+import com.parse.ParseUser;
+
 import java.util.ArrayList;
 
 public class AddShows extends Activity {
@@ -49,8 +51,8 @@ public class AddShows extends Activity {
         SV = 11;
         The100 = 12;
 
-        if(getIntent().hasExtra("Choices")){
-            ArrayList<Integer> recheck = getIntent().getIntegerArrayListExtra("Choices");
+        if(ParseUser.getCurrentUser().has("Choices")){
+            ArrayList<Integer> recheck = (ArrayList<Integer>) ParseUser.getCurrentUser().get("Choices");
 
             if (recheck.contains(5)) {
                 CheckBox toggleGOT = (CheckBox) findViewById(R.id.toggle_GOT);
@@ -120,9 +122,13 @@ public class AddShows extends Activity {
     * or the 'up' button, this function implements the change made in the list of shows to add.*/
     public void addShowsToList(View view){
         Intent toMyShows = new Intent(this, MyShows.class);
-        toMyShows.putIntegerArrayListExtra("Choices",check);
         //Maybe in the future we'll add these show lists into the could so user can retrive it on myshows screen
         startActivity(toMyShows);
+
+        if(ParseUser.getCurrentUser().has("Choices"))
+            ParseUser.getCurrentUser().remove("Choices");
+        ParseUser.getCurrentUser().put("Choices", check);
+        ParseUser.getCurrentUser().saveInBackground();
     }
 
 
@@ -284,7 +290,6 @@ public class AddShows extends Activity {
     /* This function brings the user to the MyActivity Activity*/
     private void toMyActivity() {
         Intent intent = new Intent(this,MyActivity.class);
-        intent.putIntegerArrayListExtra("Choices",getIntent().getIntegerArrayListExtra("Choices"));
         startActivity(intent);
     }
 }

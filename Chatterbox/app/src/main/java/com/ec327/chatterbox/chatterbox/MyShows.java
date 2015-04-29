@@ -9,6 +9,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.parse.Parse;
+import com.parse.ParseUser;
+
 import java.util.ArrayList;
 
 public class MyShows extends FragmentActivity {
@@ -25,10 +28,14 @@ public class MyShows extends FragmentActivity {
 
         fragmentManager = getFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
+
+        Parse.initialize(this, "sIIPDbEWnnRETu0XlKQL6QMER34bBR3ZPNV2Ibmu", "OGFvOpzYbYNsb4n9xEHIaT8vdiZFvXZOXxFAzer4");
+        //Lists the different types of preallocated "containers" the show button will be placed int.
         int[] listOfFrames = {R.id.myshows_GOT, R.id.myshows_greysAnatomy, R.id.myshows_daredevil, R.id.myshows_flash, R.id.myshows_100,
                 R.id.myshows_once, R.id.myshows_FOB, R.id.myshows_htgawm, R.id.myshows_silliconValley, R.id.myshows_madmen, R.id.myshows_HOC,
                 R.id.myshows_arrow};
 
+        //Pre-initializes the show buttons.
         Arrow fragment = new Arrow();
         Daredevil daredevil = new Daredevil();
         Flash flash = new Flash();
@@ -42,7 +49,7 @@ public class MyShows extends FragmentActivity {
         SiliconValley siliconValley = new SiliconValley();
         The100 the100 = new The100();
 
-        if (getIntent().hasExtra("Choices")) { //Creates the updated list of shows if addShows updates list.
+        //Removes all the buttons before adding any so that they do not overlap.
             fragmentTransaction.remove(fragment);
             fragmentTransaction.remove(daredevil);
             fragmentTransaction.remove(flash);
@@ -56,9 +63,11 @@ public class MyShows extends FragmentActivity {
             fragmentTransaction.remove(siliconValley);
             fragmentTransaction.remove(the100);
 
-            std = getIntent().getIntegerArrayListExtra("Choices");
+        //Gets the user specified show list settings. This list is updated every tim e the user updates list via the "Addshows" activity.
+            std = (ArrayList<Integer>) ParseUser.getCurrentUser().get("Choices");
             int index = 0;
 
+        //Add the show buttons.
             if (std.contains(5)) {
                 fragmentTransaction.add(listOfFrames[index], gameOfThrones);
                 index++;
@@ -109,50 +118,6 @@ public class MyShows extends FragmentActivity {
 
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
-        } else { //Creates all list of shows if this screen is initializing not through the addshows screen.
-
-            std = new ArrayList<>(12);
-
-            Integer Flash = 3;
-            std.add(Flash);
-            Integer Dare = 2;
-            std.add(Dare);
-            Integer GOT = 5;
-            std.add(GOT);
-            Integer FOB = 4;
-            std.add(FOB);
-            Integer Grey = 6;
-            std.add(Grey);
-            Integer Arrow = 1;
-            std.add(Arrow);
-            Integer Murder = 9;
-            std.add(Murder);
-            Integer HOC = 7;
-            std.add(HOC);
-            Integer Mad = 8;
-            std.add(Mad);
-            Integer Once = 10;
-            std.add(Once);
-            Integer SV = 11;
-            std.add(SV);
-            Integer The100 = 12;
-            std.add(The100);
-
-            fragmentTransaction.add(R.id.myshows_arrow, fragment);
-            fragmentTransaction.add(R.id.myshows_daredevil, daredevil);
-            fragmentTransaction.add(R.id.myshows_flash, flash);
-            fragmentTransaction.add(R.id.myshows_FOB, fob);
-            fragmentTransaction.add(R.id.myshows_GOT, gameOfThrones);
-            fragmentTransaction.add(R.id.myshows_greysAnatomy, greysAnatomy);
-            fragmentTransaction.add(R.id.myshows_HOC, houseOfCards);
-            fragmentTransaction.add(R.id.myshows_madmen, madMen);
-            fragmentTransaction.add(R.id.myshows_htgawm, murder);
-            fragmentTransaction.add(R.id.myshows_once, onceUponATime);
-            fragmentTransaction.add(R.id.myshows_silliconValley, siliconValley);
-            fragmentTransaction.add(R.id.myshows_100, the100);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
-        }
     }
 
     @Override
@@ -196,6 +161,9 @@ public class MyShows extends FragmentActivity {
     //Moves to the Mainscreen activity.
     public void openForum(View view) {
         Intent toMain = new Intent(this, Mainscreen.class);
+
+        //This line of loop specifies which type of show the user chose and passes the info
+        //to the Mainscreen screen template so that the show icon shows on top.
         if (view.getId() == R.id.arrowbutton)
             toMain.addFlags(1);
         else if (view.getId() == R.id.darebutton)

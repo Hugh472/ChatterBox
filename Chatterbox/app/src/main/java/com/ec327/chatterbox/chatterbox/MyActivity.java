@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -17,7 +19,7 @@ import com.parse.ParseUser;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyActivity extends ListActivity {
+public class MyActivity extends ListActivity{
 
     ArrayList<Thread> threads;
 
@@ -29,16 +31,10 @@ public class MyActivity extends ListActivity {
         setContentView(R.layout.myactivity);
 
         threads = new ArrayList<>();
-        ArrayAdapter<Thread> adapter = new ArrayAdapter<>(this, R.layout.list_item_layout, threads);
+        ArrayAdapter<Thread> adapter = new ArrayAdapter<>(this, R.layout.user_thread_layout, threads);
         setListAdapter(adapter);
 
         refreshThreadList();
-    }
-    private void loadLoginView() {
-        Intent intent = new Intent(this, Login.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
     }
 
     @Override
@@ -72,19 +68,17 @@ public class MyActivity extends ListActivity {
 
     private void toAddShows() {
         Intent intent = new Intent(this,AddShows.class);
-        intent.putIntegerArrayListExtra("Choices",getIntent().getIntegerArrayListExtra("Choices"));
         startActivity(intent);
     }
 
     private void toMyShows() {
         Intent intent = new Intent(this,MyShows.class);
-        intent.putIntegerArrayListExtra("Choices",getIntent().getIntegerArrayListExtra("Choices"));
         startActivity(intent);
     }
 
     private void refreshThreadList() {
 
-        ParseQuery<ParseObject> query = ParseQuery.getQuery(ParseUser.getCurrentUser().toString());
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("My_Activity_"+ParseUser.getCurrentUser().getUsername());
         query.findInBackground(new FindCallback<ParseObject>() {
 
             @Override
@@ -94,7 +88,7 @@ public class MyActivity extends ListActivity {
                     // and notify the adapter
                     threads.clear();
                     for (ParseObject threadObject : threadList) {
-                        Thread thread = new Thread(threadObject.getObjectId(), threadObject.getString("title"));
+                        Thread thread = new Thread(threadObject.getObjectId(), threadObject.getString("title"), threadObject.getString("season"), threadObject.getString("episode"), threadObject.getString("writer"), threadObject.getString("content"), threadObject.getString("comments"));
                         threads.add(thread);
                     }
                     ((ArrayAdapter<Thread>) getListAdapter()).notifyDataSetChanged();
@@ -103,5 +97,16 @@ public class MyActivity extends ListActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        // Do something when a list item is clicked
+        Intent intent = new Intent(this, ViewThread.class);
+        Thread clicked = threads.get(position);
+        String[] contents = {clicked.getId(), clicked.getTitle(), clicked.getSeason(), clicked.getEpisode(), clicked.getWriter(), clicked.getContent(), clicked.getComments()};
+        intent.putExtra("Contents", contents);
+        intent.addFlags(getIntent().getFlags());
+        startActivity(intent); //This screen code is roken it will not work. Fix later.
     }
 }

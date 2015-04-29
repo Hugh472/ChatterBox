@@ -1,26 +1,31 @@
 package com.ec327.chatterbox.chatterbox;
 
-/**
- * Created by Mason D. Hahn on 4/27/2015.
- */
 public class Thread {
 
-    private String id;
+    private String Id;
     private String title;
     private String season;
+    private String episode;
+    private String writer;
     private String content;
+    private String comments;
 
-    Thread(String threadId, String threadTitle) {
-        id = threadId;
+    Thread(String threadId, String threadTitle, String threadSeason, String threadEpisode, String threadWriter, String threadContent, String threadComments) {
+        Id = threadId;
         title = threadTitle;
+        season = threadSeason;
+        episode = threadEpisode;
+        writer = threadWriter;
+        content = threadContent;
+        comments = threadComments;
     }
 
     public String getId() {
-        return id;
+        return Id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setId(String Id) {
+        this.Id = Id;
     }
 
     public String getTitle() {
@@ -35,8 +40,24 @@ public class Thread {
         return season;
     }
 
-    public void setSeason(String title) {
+    public void setSeason(String season) {
         this.season = season;
+    }
+
+    public String getEpisode() {
+        return episode;
+    }
+
+    public void setEpisode(String episode) {
+        this.episode = episode;
+    }
+
+    public String getWriter() {
+        return writer;
+    }
+
+    public void setWriter(String writer) {
+        this.writer = writer;
     }
 
     public String getContent() {
@@ -47,8 +68,16 @@ public class Thread {
         this.content = content;
     }
 
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
+
     @Override
     public String toString(){
-        return this.getTitle();
+        return "S" + this.getSeason() + " E" + this.getEpisode() + " - " + this.getTitle();
     }
 }

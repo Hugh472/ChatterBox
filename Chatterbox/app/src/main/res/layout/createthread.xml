@@ -12,7 +12,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/ask_Title"
             android:id="@+id/thread_title" />
 
@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0"
-            android:inputType="text"
+            android:inputType="textCapSentences"
             android:id="@+id/thread_title_input" />
 
         <TextView
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_weight="0"
-            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/ask_season"
             android:id="@+id/thread_seasonNepisode" />
 
@@ -36,15 +36,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0"
-            android:inputType="text"
+            android:inputType="number"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:hint="@string/thread_season_hint"
             android:id="@+id/thread_season_input" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:inputType="number"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:hint="@string/thread_episode_hint"
+            android:id="@+id/thread_episode_input" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_weight="0"
-            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/ask_content"
             android:id="@+id/thread_content" />
 
