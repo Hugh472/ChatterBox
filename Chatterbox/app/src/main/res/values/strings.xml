@@ -6,8 +6,9 @@
     <!--app screen titles-->
     <string name="app_name">ChatterBox</string>
     <string name="title_addshows">Add Shows</string>
-    <string name="title_myactivity">Activity</string>
     <string name="title_myshows">Shows</string>
+    <string name="title_threads">Threads</string>
+    <string name="title_comment">Add Comment</string>
 
     <!-- Login.xml Strings -->
     <string name="login_promptText_1">Nickname</string>
@@ -16,8 +17,6 @@
     <string name="login_signUp">Sign up</string>
     <string name="username_hint">Nickname</string>
     <string name="password_hint">Password</string>
-    <string name="email_hint">Email</string>
-    <string name="sign_up_button_label">Sign Up</string>
     <string name="signup_error_message">Please enter all categories: nickname, password, and email address</string>
     <string name="signup_error_title">Error</string>
     <string name="login_error_message">Please enter all fields.</string>
@@ -31,10 +30,8 @@
     <string name="comment_hint">Enter comment here.</string>
 
     <!--  Random uncategorized Strings -->
-    <string name="error_et">Oops! Please enter a value as your total bill.</string>
     <string name="update_list">Update</string>
     <string name="icon_description">This is the ChatterBox logo.</string>
-    <string name="main_hello_world">This screen needs tab features.</string>
     <string name="thread">It\'s a photo</string>
 
     <!-- Action button titles-->
@@ -42,7 +39,7 @@
     <string name="action_myActivity">My Activity</string>
     <string name="action_refresh">Refresh</string>
     <string name="action_myShows">My Shows</string>
-    <string name="action_createThread">Post Thread</string>
+    <string name="action_createThread">New Thread</string>
     <string name="action_addComment">Comment</string>
 
     <!--CreateThread screen strings-->
@@ -68,4 +65,7 @@
     <string name="mad">Mad Men</string>
     <string name="hoc">House of Cards</string>
     <string name="arrow">Arrow</string>
+
+    <!--Add Comment Strings-->
+    <string name="enter_comment">Please enter a comment.</string>
 </resources>

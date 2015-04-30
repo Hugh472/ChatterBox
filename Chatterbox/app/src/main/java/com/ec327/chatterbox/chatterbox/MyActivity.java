@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.parse.FindCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -21,7 +22,7 @@ import java.util.List;
 
 public class MyActivity extends ListActivity{
 
-    ArrayList<Thread> threads;
+    ArrayList<UserThread> threads;
 
     /* This is the Constructor in context of Java for the Android app. */
     @Override
@@ -30,8 +31,11 @@ public class MyActivity extends ListActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.myactivity);
 
+        //Parse is initiallized not just to exchange data but also to reconnect in case of crash.
+        Parse.initialize(this, "sIIPDbEWnnRETu0XlKQL6QMER34bBR3ZPNV2Ibmu", "OGFvOpzYbYNsb4n9xEHIaT8vdiZFvXZOXxFAzer4");
+
         threads = new ArrayList<>();
-        ArrayAdapter<Thread> adapter = new ArrayAdapter<>(this, R.layout.user_thread_layout, threads);
+        ArrayAdapter<UserThread> adapter = new ArrayAdapter<>(this, R.layout.thread_template, threads);
         setListAdapter(adapter);
 
         refreshThreadList();
@@ -88,10 +92,10 @@ public class MyActivity extends ListActivity{
                     // and notify the adapter
                     threads.clear();
                     for (ParseObject threadObject : threadList) {
-                        Thread thread = new Thread(threadObject.getObjectId(), threadObject.getString("title"), threadObject.getString("season"), threadObject.getString("episode"), threadObject.getString("writer"), threadObject.getString("content"), threadObject.getString("comments"));
+                        UserThread thread = new UserThread(threadObject.getObjectId(), threadObject.getString("title"), threadObject.getString("season"), threadObject.getString("episode"), threadObject.getString("writer"), threadObject.getString("content"), threadObject.getString("comments"), threadObject.getCreatedAt().toString());
                         threads.add(thread);
                     }
-                    ((ArrayAdapter<Thread>) getListAdapter()).notifyDataSetChanged();
+                    ((ArrayAdapter<UserThread>) getListAdapter()).notifyDataSetChanged();
                 } else {
                     Log.d(getClass().getSimpleName(), "Error: " + e.getMessage());
                 }
@@ -101,12 +105,13 @@ public class MyActivity extends ListActivity{
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        // Do something when a list item is clicked
-        Intent intent = new Intent(this, ViewThread.class);
-        Thread clicked = threads.get(position);
-        String[] contents = {clicked.getId(), clicked.getTitle(), clicked.getSeason(), clicked.getEpisode(), clicked.getWriter(), clicked.getContent(), clicked.getComments()};
+        //In MyActivity, threads are created without the show info the thread was posted under. Thus, the strings
+        //that consist of threads are directly passe onto the thread display screen.
+        Intent intent = new Intent(this, ViewMyThread.class);
+        UserThread clicked = threads.get(position);
+        String[] contents = {clicked.getId(), clicked.getTitle(), clicked.getSeason(), clicked.getEpisode(), clicked.getWriter(), clicked.getContent(), clicked.getComments(), clicked.getCreatedAt()};
         intent.putExtra("Contents", contents);
         intent.addFlags(getIntent().getFlags());
-        startActivity(intent); //This screen code is roken it will not work. Fix later.
+        startActivity(intent);
     }
 }

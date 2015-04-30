@@ -6,78 +6,35 @@ public class Thread {
     private String title;
     private String season;
     private String episode;
-    private String writer;
-    private String content;
-    private String comments;
 
-    Thread(String threadId, String threadTitle, String threadSeason, String threadEpisode, String threadWriter, String threadContent, String threadComments) {
+    //This is a thread object that stores the minimum necessary onfo to connect to the
+    //Parse cloud and retrieve thread specific info.
+    Thread(String threadId, String threadTitle, String threadSeason, String threadEpisode) {
         Id = threadId;
         title = threadTitle;
         season = threadSeason;
         episode = threadEpisode;
-        writer = threadWriter;
-        content = threadContent;
-        comments = threadComments;
     }
 
     public String getId() {
         return Id;
     }
 
-    public void setId(String Id) {
-        this.Id = Id;
-    }
-
     public String getTitle() {
         return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getSeason() {
         return season;
     }
 
-    public void setSeason(String season) {
-        this.season = season;
-    }
-
     public String getEpisode() {
         return episode;
     }
 
-    public void setEpisode(String episode) {
-        this.episode = episode;
-    }
-
-    public String getWriter() {
-        return writer;
-    }
-
-    public void setWriter(String writer) {
-        this.writer = writer;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getComments() {
-        return comments;
-    }
-
-    public void setComments(String comments) {
-        this.comments = comments;
-    }
-
+    //This function formatts and outputs the way threads are displayed as a list.
     @Override
     public String toString(){
-        return "S" + this.getSeason() + " E" + this.getEpisode() + " - " + this.getTitle();
+        return this.getTitle() + "\n<Season" + this.getSeason() + " Episode" + this.getEpisode() + ">";
     }
 }

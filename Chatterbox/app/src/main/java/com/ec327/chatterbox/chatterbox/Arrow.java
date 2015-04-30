@@ -8,11 +8,14 @@ import android.view.ViewGroup;
 
 public class Arrow extends Fragment {
 
+    //A button object that configures the show icon button on the myshows list as the specific show this class represents.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View buttonArrow = inflater.inflate(R.layout.button_arrow,container,false);
-        return buttonArrow;
+
+        View showButton = inflater.inflate(R.layout.show_button_template,container,false);
+        showButton.findViewById(R.id.theShowButton).setBackgroundResource(R.drawable.arrow);
+        showButton.findViewById(R.id.theShowButton).setTag(1);
+        return showButton;
     }
 }

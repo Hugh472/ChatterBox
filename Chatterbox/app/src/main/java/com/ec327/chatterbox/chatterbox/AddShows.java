@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 
+import com.parse.Parse;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
@@ -36,6 +37,9 @@ public class AddShows extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addshows);
 
+        //Parse is initiallized not just to exchange data but also to reconnect in case of crash.
+        Parse.initialize(this, "sIIPDbEWnnRETu0XlKQL6QMER34bBR3ZPNV2Ibmu", "OGFvOpzYbYNsb4n9xEHIaT8vdiZFvXZOXxFAzer4");
+
         check = new ArrayList<>(12);
 
         Flash = 3;
@@ -51,6 +55,8 @@ public class AddShows extends Activity {
         SV = 11;
         The100 = 12;
 
+        //These if statements check which shows users have already added into their myshows list and makes the
+        //check box for user choice already checked so that users do not add the same show twice.
         if(ParseUser.getCurrentUser().has("Choices")){
             ArrayList<Integer> recheck = (ArrayList<Integer>) ParseUser.getCurrentUser().get("Choices");
 
@@ -128,9 +134,8 @@ public class AddShows extends Activity {
         if(ParseUser.getCurrentUser().has("Choices"))
             ParseUser.getCurrentUser().remove("Choices");
         ParseUser.getCurrentUser().put("Choices", check);
-        ParseUser.getCurrentUser().saveInBackground();
+        ParseUser.getCurrentUser().saveEventually();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

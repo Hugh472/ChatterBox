@@ -37,7 +37,7 @@
         <!-- Declares the Mainscreen activity. -->
         <activity
             android:name="com.ec327.chatterbox.chatterbox.Mainscreen"
-            android:label="@string/app_name"
+            android:label="@string/title_threads"
             android:parentActivityName="com.ec327.chatterbox.chatterbox.MyShows" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -46,7 +46,7 @@
         <!-- Declares the MyActivity activity -->
         <activity
             android:name="com.ec327.chatterbox.chatterbox.MyActivity"
-            android:label="@string/title_myactivity" >
+            android:label="@string/action_myActivity" >
         </activity>
 
         <activity
@@ -57,20 +57,28 @@
         <!-- Declares the thread activity -->
         <activity
             android:name="com.ec327.chatterbox.chatterbox.CreateThread"
-            android:label="@string/app_name" >
+            android:label="@string/action_createThread" >
         </activity>
         <!-- Declares the AddShows activity -->
         <activity
             android:name="com.ec327.chatterbox.chatterbox.AddShows"
             android:label="@string/title_addshows" >
         </activity>
+        <!-- Declares the Add Comment activity -->
         <activity
             android:name="com.ec327.chatterbox.chatterbox.AddComment"
+            android:label="@string/title_comment" >
+        </activity>
+
+        <!-- Declares the ViewThread activity -->
+        <activity
+            android:name="com.ec327.chatterbox.chatterbox.ViewThread"
             android:label="@string/app_name" >
         </activity>
 
+        <!-- Declares the ViewMyThread activity -->
         <activity
-            android:name="com.ec327.chatterbox.chatterbox.ViewThread"
+            android:name="com.ec327.chatterbox.chatterbox.ViewMyThread"
             android:label="@string/app_name" >
         </activity>
 

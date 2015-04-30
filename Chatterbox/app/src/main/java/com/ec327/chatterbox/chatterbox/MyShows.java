@@ -29,7 +29,9 @@ public class MyShows extends FragmentActivity {
         fragmentManager = getFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
 
+        //Parse is initiallized not just to exchange data but also to reconnect in case of crash.
         Parse.initialize(this, "sIIPDbEWnnRETu0XlKQL6QMER34bBR3ZPNV2Ibmu", "OGFvOpzYbYNsb4n9xEHIaT8vdiZFvXZOXxFAzer4");
+
         //Lists the different types of preallocated "containers" the show button will be placed int.
         int[] listOfFrames = {R.id.myshows_GOT, R.id.myshows_greysAnatomy, R.id.myshows_daredevil, R.id.myshows_flash, R.id.myshows_100,
                 R.id.myshows_once, R.id.myshows_FOB, R.id.myshows_htgawm, R.id.myshows_silliconValley, R.id.myshows_madmen, R.id.myshows_HOC,
@@ -164,30 +166,31 @@ public class MyShows extends FragmentActivity {
 
         //This line of loop specifies which type of show the user chose and passes the info
         //to the Mainscreen screen template so that the show icon shows on top.
-        if (view.getId() == R.id.arrowbutton)
+        if (view.getTag().toString().equals("1"))
             toMain.addFlags(1);
-        else if (view.getId() == R.id.darebutton)
+        else if (view.getTag().toString().equals("2"))
             toMain.addFlags(2);
-        else if (view.getId() == R.id.flashbutton)
+        else if (view.getTag().toString().equals("3"))
             toMain.addFlags(3);
-        else if (view.getId() == R.id.fobbutton)
+        else if (view.getTag().toString().equals("4"))
             toMain.addFlags(4);
-        else if (view.getId() == R.id.gotbutton)
+        else if (view.getTag().toString().equals("5"))
             toMain.addFlags(5);
-        else if (view.getId() == R.id.greybutton)
+        else if (view.getTag().toString().equals("6"))
             toMain.addFlags(6);
-        else if (view.getId() == R.id.hocbutton)
+        else if (view.getTag().toString().equals("7"))
             toMain.addFlags(7);
-        else if (view.getId() == R.id.madbutton)
+        else if (view.getTag().toString().equals("8"))
             toMain.addFlags(8);
-        else if (view.getId() == R.id.murderbutton)
+        else if (view.getTag().toString().equals("9"))
             toMain.addFlags(9);
-        else if (view.getId() == R.id.oncebutton)
+        else if (view.getTag().toString().equals("10"))
             toMain.addFlags(10);
-        else if (view.getId() == R.id.siliconbutton)
+        else if (view.getTag().toString().equals("11"))
             toMain.addFlags(11);
-        else if (view.getId() == R.id.the100button)
+        else if (view.getTag().toString().equals("12"))
             toMain.addFlags(12);
+
         toMain.putIntegerArrayListExtra("Choices",std);
         startActivity(toMain);
     }

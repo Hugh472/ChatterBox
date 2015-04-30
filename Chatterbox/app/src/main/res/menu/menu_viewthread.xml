@@ -4,16 +4,25 @@
     tools:context=".ViewThread">
 
     <item
+        android:id="@+id/action_refresh"
+        android:title="@string/action_refresh"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:icon="@drawable/refresh"/>
+
+    <item
         android:id="@+id/action_addComment"
         android:title="@string/action_addComment"
         android:orderInCategory="100"
-        android:showAsAction="never" />
+        android:showAsAction="ifRoom"
+        android:icon="@drawable/comment"/>
 
     <item
-        android:id="@+id/action_addShows"
-        android:title="@string/action_addShows"
+        android:id="@+id/action_myShows"
+        android:title="@string/action_myShows"
         android:orderInCategory="100"
-        android:showAsAction="never" />
+        android:showAsAction="ifRoom"
+        android:icon="@drawable/shows_home"/>
 
     <item
         android:id="@+id/action_myActivity"
@@ -22,8 +31,8 @@
         android:showAsAction="never" />
 
     <item
-        android:id="@+id/action_myShows"
-        android:title="@string/action_myShows"
+        android:id="@+id/action_addShows"
+        android:title="@string/action_addShows"
         android:orderInCategory="100"
         android:showAsAction="never" />
 </menu>

@@ -18,7 +18,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="36sp"
-            android:paddingBottom="2dp"
             android:id="@+id/viewThread_Title"
             android:gravity="center_horizontal" />
 
@@ -26,7 +25,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:paddingBottom="0dp"
             android:textSize="24sp"
             android:id="@+id/viewThread_Season" />
 
@@ -42,7 +40,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
+            android:paddingBottom="15dp"
             android:id="@+id/viewThread_Content" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="13sp"
+            android:id="@+id/viewThread_CommentSection"/>
 
         <TextView
             android:layout_width="match_parent"

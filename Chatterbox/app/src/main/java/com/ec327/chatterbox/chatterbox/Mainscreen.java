@@ -1,35 +1,26 @@
 package com.ec327.chatterbox.chatterbox;
 
+import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.ImageView;
 import android.widget.TabHost;
 
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
+import com.parse.Parse;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class Mainscreen extends ListActivity {
+public class Mainscreen extends Activity {
 
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
 
-    ArrayList<Thread> threads;
-
-    String showTitle;
+    MainTabEpisode episodeTab;
+    MainTabSeason seasonTab;
+    MainTabSeries seriesTab;
 
     /* This is the Constructor in context of Java for the Android app. */
     @Override
@@ -38,12 +29,37 @@ public class Mainscreen extends ListActivity {
         setContentView(R.layout.mainscreen);
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //The show icon is displayed on the top.
-        fragmentManager = getFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        CurrentShow fragment = new CurrentShow();
-        fragmentTransaction.add(R.id.main_showtitle, fragment);
-        fragmentTransaction.commit();
+        //Parse is initiallized not just to exchange data but also to reconnect in case of crash.
+        Parse.initialize(this, "sIIPDbEWnnRETu0XlKQL6QMER34bBR3ZPNV2Ibmu", "OGFvOpzYbYNsb4n9xEHIaT8vdiZFvXZOXxFAzer4");
+
+        ImageView showIcon = (ImageView) findViewById(R.id.main_showIcon);
+
+        //gets the info from the myshows screen which show icon the user clicked and displays the same icon on the top.
+        if(getIntent().getFlags() == 1) {
+            showIcon.setBackgroundResource(R.drawable.arrow);
+        }else if(getIntent().getFlags() == 2){
+            showIcon.setBackgroundResource(R.drawable.daredevil);
+        }else if(getIntent().getFlags() == 3){
+            showIcon.setBackgroundResource(R.drawable.flash);
+        }else if(getIntent().getFlags() == 4){
+            showIcon.setBackgroundResource(R.drawable.fob);
+        }else if(getIntent().getFlags() == 5){
+            showIcon.setBackgroundResource(R.drawable.got);
+        }else if(getIntent().getFlags() == 6){
+            showIcon.setBackgroundResource(R.drawable.greys_anatomy);
+        }else if(getIntent().getFlags() == 7){
+            showIcon.setBackgroundResource(R.drawable.hoc);
+        }else if(getIntent().getFlags() == 8){
+            showIcon.setBackgroundResource(R.drawable.madmen);
+        }else if(getIntent().getFlags() == 9){
+            showIcon.setBackgroundResource(R.drawable.htgawm);
+        }else if(getIntent().getFlags() == 10){
+            showIcon.setBackgroundResource(R.drawable.once);
+        }else if(getIntent().getFlags() == 11){
+            showIcon.setBackgroundResource(R.drawable.silicon_valley);
+        }else{
+            showIcon.setBackgroundResource(R.drawable.the100);
+        }
 
         TabHost forums = (TabHost) findViewById(R.id.mainTabs);
         forums.setup();
@@ -66,11 +82,16 @@ public class Mainscreen extends ListActivity {
         spec3.setIndicator("Series");
         forums.addTab(spec3);
 
-        threads = new ArrayList<>();
-        ArrayAdapter<Thread> adapter = new ArrayAdapter<>(this, R.layout.main_thread_layout, threads);
-        setListAdapter(adapter);
-
-        refreshThreadList();
+        //Each tabs' thread list is a fragment. Each fragments are initialized here.
+        fragmentManager = getFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        episodeTab = new MainTabEpisode();
+        fragmentTransaction.add(R.id.main_episode, episodeTab);
+        seasonTab = new MainTabSeason();
+        fragmentTransaction.add(R.id.main_season, seasonTab);
+        seriesTab = new MainTabSeries();
+        fragmentTransaction.add(R.id.main_series, seriesTab);
+        fragmentTransaction.commit();
     }
 
     @Override
@@ -99,7 +120,9 @@ public class Mainscreen extends ListActivity {
             toCreateThread();
             return true;
         } else if(id == R.id.action_refresh){
-            refreshThreadList();
+            episodeTab.refreshThreadList();
+            seasonTab.refreshThreadList();
+            seriesTab.refreshThreadList();
             return true;
         } else if(id == android.R.id.home){
             toMyShows();
@@ -127,66 +150,6 @@ public class Mainscreen extends ListActivity {
 
     private void toMyShows() {
         Intent intent = new Intent(this,MyShows.class);
-        startActivity(intent);
-    }
-
-    private void refreshThreadList() {
-
-        //This line of loop specifies which type of show the mainscreen is displaying and at the same time
-        //specifies the parse query which type of show thread to receive from the cloud.
-        if (getIntent().getFlags() == 1)
-            showTitle = "Arrow_Thread";
-        else if (getIntent().getFlags() == 2)
-            showTitle = "Daredevil_Thread";
-        else if (getIntent().getFlags() == 3)
-            showTitle = "Flash_Thread";
-        else if (getIntent().getFlags()==4)
-            showTitle = "FOB_Thread";
-        else if (getIntent().getFlags()==5)
-            showTitle = "Game_of_Thrones_Thread";
-        else if (getIntent().getFlags()==6)
-            showTitle = "Greys_Anatomy_Thread";
-        else if (getIntent().getFlags()==7)
-            showTitle = "House_of_Cards_Thread";
-        else if (getIntent().getFlags()==8)
-            showTitle = "Madmen_Thread";
-        else if (getIntent().getFlags()==9)
-            showTitle = "How_to_Get_Away_With_Murder_Thread";
-        else if (getIntent().getFlags()==10)
-            showTitle = "Once_Upon_A_Time_Thread";
-        else if (getIntent().getFlags()==11)
-            showTitle = "Silicon_Valley_Thread";
-        else if (getIntent().getFlags()==12)
-            showTitle = "The_100_Thread";
-
-        ParseQuery<ParseObject> query = ParseQuery.getQuery(showTitle);
-        query.findInBackground(new FindCallback<ParseObject>() {
-
-            @Override
-            public void done(List<ParseObject> threadList, ParseException e) {
-                if (e == null) {
-                    // If there are results, update the list of posts
-                    // and notify the adapter
-                    threads.clear();
-                    for (ParseObject threadObject : threadList) {
-                        Thread thread = new Thread(threadObject.getObjectId(), threadObject.getString("title"), threadObject.getString("season"), threadObject.getString("episode"), threadObject.getString("writer"), threadObject.getString("content"), threadObject.getString("comments"));
-                        threads.add(thread);
-                    }
-                    ((ArrayAdapter<Thread>) getListAdapter()).notifyDataSetChanged();
-                } else {
-                    Log.d(getClass().getSimpleName(), "Error: " + e.getMessage());
-                }
-            }
-        });
-    }
-
-    @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
-        // Do something when a list item is clicked
-        Intent intent = new Intent(this, ViewThread.class);
-        Thread clicked = threads.get(position);
-        String[] contents = {showTitle, clicked.getId()};
-        intent.putExtra("Contents", contents);
         startActivity(intent);
     }
 }

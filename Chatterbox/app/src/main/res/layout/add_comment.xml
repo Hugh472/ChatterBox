@@ -8,20 +8,12 @@
     tools:context=".AddComment"
     android:padding="10dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:paddingBottom="13dp"
-        android:textSize="23sp"
-        android:text="@string/ask_content"
-        android:id="@+id/comment_title" />
-
     <EditText
         android:id="@+id/comment_content_input"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:paddingTop="5dp"
         android:hint="@string/comment_hint"
         android:gravity="top"
         android:inputType="textCapSentences|textMultiLine"

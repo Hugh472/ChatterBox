@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.parse.GetCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -21,34 +22,12 @@ public class ViewThread extends Activity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.viewthread);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        final TextView title = (TextView) findViewById(R.id.viewThread_Title);
-        final TextView season_episode = (TextView) findViewById(R.id.viewThread_Season);
-        final TextView writer = (TextView) findViewById(R.id.viewThread_Writer);
-        final TextView content = (TextView) findViewById(R.id.viewThread_Content);
-        final TextView comments  = (TextView) findViewById(R.id.viewThread_Comments);
+        //Parse is initiallized not just to exchange data but also to reconnect in case of crash.
+        Parse.initialize(this, "sIIPDbEWnnRETu0XlKQL6QMER34bBR3ZPNV2Ibmu", "OGFvOpzYbYNsb4n9xEHIaT8vdiZFvXZOXxFAzer4");
 
-        String[] post = getIntent().getStringArrayExtra("Contents");
-
-        ParseQuery<ParseObject> query = ParseQuery.getQuery(post[0]);
-        query.getInBackground(post[1], new GetCallback<ParseObject>() {
-
-            @Override
-            public void done(ParseObject object, ParseException e) {
-                if (e == null) {
-                    // object will be your thread
-                    title.setText(object.getString("title"));
-                    season_episode.setText("<Season " + object.getString("season") + " Episode " + object.getString("episode") + ">");
-                    writer.setText("By " + object.getString("writer"));
-                    content.setText(object.getString("content"));
-                    if (object.getString("comments") == null) {
-                        comments.setText("");
-                        return;
-                    }
-                    comments.setText(object.getString("comments"));
-                }
-            }
-        });
+        refreshThread();
     }
 
     @Override
@@ -79,6 +58,12 @@ public class ViewThread extends Activity {
         } else if (id == R.id.action_addComment){
             toAddComment();
             return true;
+        } else if(id == android.R.id.home){
+            toMainscreen();
+            return true;
+        } else if(id == R.id.action_refresh){
+            refreshThread();
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -102,6 +87,45 @@ public class ViewThread extends Activity {
     private void toAddComment() {
         Intent intent = new Intent(this,AddComment.class);
         intent.putExtra("Contents", getIntent().getStringArrayExtra("Contents"));
+        intent.addFlags(getIntent().getFlags());
         startActivity(intent);
+    }
+
+    private void toMainscreen() {
+        Intent intent = new Intent(this,Mainscreen.class);
+        intent.addFlags(getIntent().getFlags());
+        startActivity(intent);
+    }
+
+    private void refreshThread(){
+
+        final TextView title = (TextView) findViewById(R.id.viewThread_Title);
+        final TextView season_episode = (TextView) findViewById(R.id.viewThread_Season);
+        final TextView writer = (TextView) findViewById(R.id.viewThread_Writer);
+        final TextView content = (TextView) findViewById(R.id.viewThread_Content);
+        final TextView commentSection = (TextView) findViewById(R.id.viewThread_CommentSection);
+        final TextView comments  = (TextView) findViewById(R.id.viewThread_Comments);
+
+        String[] post = getIntent().getStringArrayExtra("Contents");
+
+        //Uses the thread ID and category name to retrieve the thread specific info and displays them on its according viewtext layout.
+        ParseQuery<ParseObject> query = ParseQuery.getQuery(post[0]);
+        query.getInBackground(post[1], new GetCallback<ParseObject>() {
+
+            @Override
+            public void done(ParseObject object, ParseException e) {
+                if (e == null) {
+                    // object will be your thread
+                    title.setText(object.getString("title"));
+                    season_episode.setText("<Season " + object.getString("season") + " Episode " + object.getString("episode") + ">");
+                    writer.setText("By " + object.getString("writer"));
+                    content.setText(object.getString("content"));
+                    commentSection.setText("");
+                    if(object.getString("comments").length()==0)
+                        commentSection.setText("<No comments>");
+                    comments.setText(object.getString("comments"));
+                }
+            }
+        });
     }
 }
